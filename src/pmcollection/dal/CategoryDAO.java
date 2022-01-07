@@ -1,17 +1,17 @@
 package pmcollection.dal;
 
-import pmcollection.be.Movie;
+import pmcollection.be.Category;
 
 import java.util.List;
 
-public class MovieDAO implements IMovieDAO {
+public class CategoryDAO implements ICategoryDAO{
     @Override
     public int create() {
         return 0;
     }
 
     @Override
-    public List<Movie> read() {
+    public List<Category> read() {
         return null;
     }
 
