@@ -4,7 +4,7 @@ import pmcollection.be.Movie;
 
 import java.util.List;
 
-public interface IMovieDAO {
+public interface IMovieDA {
     int create();
     List<Movie> read();
     void update();

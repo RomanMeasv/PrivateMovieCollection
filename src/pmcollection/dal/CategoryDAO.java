@@ -4,7 +4,7 @@ import pmcollection.be.Category;
 
 import java.util.List;
 
-public class CategoryDAO implements ICategoryDAO{
+public class CategoryDAO implements ICategoryDA {
     @Override
     public int create() {
         return 0;
