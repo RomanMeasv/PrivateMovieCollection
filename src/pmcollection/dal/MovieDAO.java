@@ -5,23 +5,29 @@ import pmcollection.be.Movie;
 import java.util.List;
 
 public class MovieDAO implements IMovieDA {
+
     @Override
-    public int create() {
-        return 0;
+    public void createMovie(Movie movie) {
+
     }
 
     @Override
-    public List<Movie> read() {
+    public List<Movie> getAllMovies() {
         return null;
     }
 
     @Override
-    public void update() {
+    public Movie getMovie(int id) {
+        return null;
+    }
+
+    @Override
+    public void updateMovie(Movie movie) {
 
     }
 
     @Override
-    public void delete() {
+    public void deleteMovie(Movie movie) {
 
     }
 }

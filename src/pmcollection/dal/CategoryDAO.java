@@ -5,23 +5,29 @@ import pmcollection.be.Category;
 import java.util.List;
 
 public class CategoryDAO implements ICategoryDA {
+
     @Override
-    public int create() {
+    public int createCategory(Category category) {
         return 0;
     }
 
     @Override
-    public List<Category> read() {
+    public List<Category> getAllCategories() {
         return null;
     }
 
     @Override
-    public void update() {
+    public Category getCategory(int id) {
+        return null;
+    }
+
+    @Override
+    public void updateCategory(Category category) {
 
     }
 
     @Override
-    public void delete() {
+    public void deleteCategory(Category category) {
 
     }
 }

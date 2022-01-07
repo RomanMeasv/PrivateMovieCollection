@@ -55,6 +55,9 @@ public class Movie {
         this.lastview = lastview;
     }
 
+    /*
+    One movie should only have one category only ONCE!
+     */
     public void addCategory(Category category)
     {
         categories.add(category);

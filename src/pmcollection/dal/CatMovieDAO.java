@@ -1,28 +1,24 @@
 package pmcollection.dal;
 
 import pmcollection.be.Category;
+import pmcollection.be.Movie;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class CatMovieDAO implements ICatMovieDA{
 
     @Override
-    public int create() {
-        return 0;
-    }
-
-    @Override
-    public List<Category> read() {
+    public HashMap<Movie, Category> getAllCatMovies() {
         return null;
     }
 
     @Override
-    public void update() {
-
+    public int createCatMovie(Movie movie, Category category) {
+        return 0;
     }
 
     @Override
-    public void delete() {
+    public void deleteCatMovie(Movie movie, Category category) {
 
     }
 }

@@ -5,8 +5,9 @@ import pmcollection.be.Movie;
 import java.util.List;
 
 public interface IMovieDA {
-    int create();
-    List<Movie> read();
-    void update();
-    void delete();
+    void createMovie(Movie movie);
+    List<Movie> getAllMovies();
+    Movie getMovie(int id);
+    void updateMovie(Movie movie);
+    void deleteMovie(Movie movie);
 }
