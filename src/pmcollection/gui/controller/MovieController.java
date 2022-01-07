@@ -1,14 +1,24 @@
 package pmcollection.gui.controller;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import pmcollection.be.Category;
+import pmcollection.be.Movie;
+import pmcollection.gui.model.CategoryModel;
+import pmcollection.gui.model.MovieModel;
 
-import java.net.URL;
-import java.util.*;
 
 public class MovieController {
+    @FXML
+    public ListView<Category> categoryLV;
+    @FXML
+    public ListView<Movie> movieLV;
 
+    private CategoryModel categoryModel;
+    private MovieModel movieModel;
+
+    public MovieController(){
+        categoryModel = new CategoryModel();
+        movieModel = new MovieModel();
+    }
 }
