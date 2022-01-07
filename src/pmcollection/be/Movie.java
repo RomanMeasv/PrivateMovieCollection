@@ -1,6 +1,7 @@
 package pmcollection.be;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Movie {
     private int id;
@@ -8,6 +9,7 @@ public class Movie {
     private int rating;
     private String filelink;
     private LocalDate lastview;
+    private List<Category> categories;
 
     public Movie(int id, String name, int rating, String filelink, LocalDate lastview) {
         this.id = id;
@@ -51,5 +53,20 @@ public class Movie {
 
     public void setLastview(LocalDate lastview) {
         this.lastview = lastview;
+    }
+
+    public void addCategory(Category category)
+    {
+        categories.add(category);
+    }
+
+    public void removeCategory(Category category)
+    {
+        categories.remove(category);
+    }
+
+    public List<Category> getCategories()
+    {
+        return categories;
     }
 }
