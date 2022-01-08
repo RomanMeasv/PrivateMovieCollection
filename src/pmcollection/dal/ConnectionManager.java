@@ -6,10 +6,10 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 
-public class ConnectDB {
+public class ConnectionManager {
     private final SQLServerDataSource ds;
 
-    public ConnectDB() throws IOException
+    public ConnectionManager() throws IOException
     {
         ds = new SQLServerDataSource();
         ds.setServerName("10.176.111.31");

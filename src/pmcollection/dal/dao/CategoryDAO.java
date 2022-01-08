@@ -1,14 +1,15 @@
-package pmcollection.dal;
+package pmcollection.dal.dao;
 
 import pmcollection.be.Category;
+import pmcollection.dal.interfaces.ICategoryDA;
 
 import java.util.List;
 
 public class CategoryDAO implements ICategoryDA {
 
     @Override
-    public int createCategory(Category category) {
-        return 0;
+    public Category createCategory(Category category) {
+        return null;
     }
 
     @Override

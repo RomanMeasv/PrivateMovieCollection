@@ -1,8 +1,8 @@
 package pmcollection.bll;
 
 import pmcollection.be.Movie;
-import pmcollection.dal.IMovieDA;
-import pmcollection.dal.MovieDAO;
+import pmcollection.dal.interfaces.IMovieDA;
+import pmcollection.dal.dao.MovieDAO;
 
 import java.util.List;
 

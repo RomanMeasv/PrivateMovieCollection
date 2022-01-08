@@ -1,11 +1,12 @@
-package pmcollection.dal;
+package pmcollection.dal.dao;
 
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
+import pmcollection.dal.interfaces.ICatMovieDA;
 
 import java.util.HashMap;
 
-public class CatMovieDAO implements ICatMovieDA{
+public class CatMovieDAO implements ICatMovieDA {
 
     @Override
     public HashMap<Movie, Category> getAllCatMovies() {

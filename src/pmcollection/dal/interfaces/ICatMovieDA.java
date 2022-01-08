@@ -1,4 +1,4 @@
-package pmcollection.dal;
+package pmcollection.dal.interfaces;
 
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
