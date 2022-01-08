@@ -6,12 +6,12 @@ import java.util.List;
 public class Movie {
     private int id;
     private String name;
-    private int rating;
+    private double rating;
     private String filelink;
     private LocalDate lastview;
     private List<Category> categories;
 
-    public Movie(int id, String name, int rating, String filelink, LocalDate lastview) {
+    public Movie(int id, String name, double rating, String filelink, LocalDate lastview) {
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -31,7 +31,7 @@ public class Movie {
         this.name = name;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
