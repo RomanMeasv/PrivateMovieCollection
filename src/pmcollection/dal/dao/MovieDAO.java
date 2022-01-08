@@ -43,7 +43,7 @@ public class MovieDAO implements IMovieDA {
             } else {
                 throw new MovieNameAlreadyExistsException();
             }
-            //TODO: Add links with categoreis
+            //TODO: Add links with categories -> Implement createCatMovie
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             throw new SQLException();
