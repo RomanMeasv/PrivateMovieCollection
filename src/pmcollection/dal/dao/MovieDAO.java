@@ -12,7 +12,7 @@ import java.util.List;
 public class MovieDAO implements IMovieDA {
     ConnectionManager cm;
 
-    public MovieDAO() throws IOException {
+    public MovieDAO() {
         this.cm = new ConnectionManager();
     }
 
@@ -43,7 +43,9 @@ public class MovieDAO implements IMovieDA {
             } else {
                 throw new MovieNameAlreadyExistsException();
             }
+            //TODO: Add links with categoreis
         } catch (SQLException throwables) {
+            throwables.printStackTrace();
             throw new SQLException();
         }
         return movieCreated;
