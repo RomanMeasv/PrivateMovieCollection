@@ -1,9 +1,10 @@
 package pmcollection.dal;
 
-import java.io.FileReader;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Properties;
 
 public class ConnectDB {
     private final SQLServerDataSource ds;
@@ -11,11 +12,11 @@ public class ConnectDB {
     public ConnectDB() throws IOException
     {
         ds = new SQLServerDataSource();
-        ds.setServerName(props.getProperty("SERVER"));
-        ds.setDatabaseName(props.getProperty("DATABASE"));
-        ds.setPortNumber(Integer.parseInt(props.getProperty("PORT")));
-        ds.setUser(props.getProperty("USER"));
-        ds.setPassword(props.getProperty("PASSWORD"));
+        ds.setServerName("10.176.111.31");
+        ds.setDatabaseName("PMCollection_TeamRMA");
+        ds.setPortNumber(1433);
+        ds.setUser("CSe21B_1");
+        ds.setPassword("CSe21B_1");
     }
 
     public Connection getConnection() throws SQLServerException
