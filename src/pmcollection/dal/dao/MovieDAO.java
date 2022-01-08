@@ -22,10 +22,12 @@ public class MovieDAO implements IMovieDA {
             ResultSet rsCheck = pstCheckAuthor.executeQuery();
 
             if(!rsCheck.isBeforeFirst()) {
-                String sqlcommandInsert = "INSERT INTO Movie VALUES (?);";
+                String sqlcommandInsert = "INSERT INTO Movie VALUES (?, ?, ?, ?);";
                 PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandInsert, Statement.RETURN_GENERATED_KEYS);
                 pstmtSelect.setString(1,movie.getName());
-                pstmtSelect.
+                pstmtSelect.setFloat(2, movie.getRating());
+                pstmtSelect.setString(3, movie.getFilelink());
+                pstmtSelect.setDate(4, Date.valueOf(movie.getLastview()));
                 pstmtSelect.execute();
                 ResultSet rs = pstmtSelect.getGeneratedKeys();
                 while(rs.next())
