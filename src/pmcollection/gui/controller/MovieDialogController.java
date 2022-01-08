@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import javafx.util.converter.LocalDateStringConverter;
 import pmcollection.be.Category;
 
 import java.io.File;
@@ -42,33 +43,35 @@ public class MovieDialogController implements Initializable {
         return this.txtFieldName.getText();
     }
 
-    public Category getCategories() {
-        return this.choiceBoxCategories.getValue();
+    public List<Category> getCategories() {
+        return this.choiceBoxCategories.getItems();
     }
 
     public float getRating() {
-        return 0;//this.txtFieldRating.getText();
+        String text = this.txtFieldRating.getText();
+        return Float.parseFloat(text);
+    }
+
+    public LocalDate getLastview() {
+        String text = this.txtFieldLastView.getText();
+        return null;
     }
 
     public String getFilelink() {
         return this.txtFieldLink.getText();
     }
 
-    public String getLastview() {
-        return this.txtFieldLastView.getText();
-    }
-
     public void setName(String name) {
         this.txtFieldName.setText(name);
-    }
-
-    public void setRating(float rating) {
-        this.txtFieldRating.setText(""+rating);
     }
 
     public void setCategories(List<Category> categories) {
 
         this.choiceBoxCategories.setItems(FXCollections.observableList(categories));
+    }
+
+    public void setRating(float rating) {
+        this.txtFieldRating.setText(""+rating);
     }
 
     public void setLastView(LocalDate time) {
