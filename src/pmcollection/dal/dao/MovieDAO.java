@@ -5,16 +5,21 @@ import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.exceptions.MovieNameAlreadyExistsException;
 import pmcollection.dal.interfaces.IMovieDA;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
 public class MovieDAO implements IMovieDA {
     ConnectionManager cm;
 
+    public MovieDAO() throws IOException {
+        this.cm = new ConnectionManager();
+    }
+
     @Override
     public Movie createMovie(Movie movie) throws SQLException, MovieNameAlreadyExistsException {
         Movie movieCreated=null;
-        try (Connection con = con.getConnection()) {
+        try (Connection con = cm.getConnection()) {
             //checks if movie name exists, TODO: extract to method
             String sqlCheckSelect = "SELECT * FROM Movie WHERE name = ?";
             PreparedStatement pstCheckAuthor = con.prepareStatement(sqlCheckSelect);
