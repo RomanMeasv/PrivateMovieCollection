@@ -1,11 +1,11 @@
-package pmcollection.gui.view;
+package pmcollection.gui.view.dialogs;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import pmcollection.be.Movie;
-import pmcollection.gui.controller.MovieDialogController;
+import pmcollection.gui.controller.dialogs.MovieDialogController;
 
 import java.io.IOException;
 

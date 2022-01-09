@@ -12,18 +12,33 @@ import java.util.List;
 
 public class CategoryModel {
     private CategoryLogic categoryLogic;
-    private List<Category> categories;
+    private ObservableList<Category> categories;
 
-    public CategoryModel(){
+    public CategoryModel() throws Exception {
         init();
     }
 
-    private void init() {
+    private void init() throws Exception {
         categoryLogic = new CategoryLogic();
+        categories = FXCollections.observableList(categoryLogic.getAllCategories());
+    }
 
-        //categoryLogic.getAllCategories()
-        categories = FXCollections.observableList(new ArrayList<>());
+    public ObservableList<Category> getCategoryList() {
+        return this.categories;
+    }
 
+    public void addCategory(Category response) throws Exception {
+        Category addedToDB = this.categoryLogic.addCategory(response);
+        this.categories.add(addedToDB);
+    }
 
+    public void editCategory(Category selected, Category response) throws Exception {
+        this.categoryLogic.update(response);
+        this.categories.set(this.categories.indexOf(selected), response);
+    }
+
+    public void deleteCategory(Category selected) throws Exception {
+        this.categoryLogic.delete(selected);
+        this.categories.remove(selected);
     }
 }

@@ -1,4 +1,4 @@
-package pmcollection.gui.controller;
+package pmcollection.gui.controller.dialogs;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

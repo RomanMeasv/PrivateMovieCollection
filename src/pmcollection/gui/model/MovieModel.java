@@ -21,9 +21,6 @@ public class MovieModel {
 
     private void init() throws IOException {
         movieLogic = new MovieLogic();
-        //movieLogic.getAllMovies()
-        movies = FXCollections.observableList(new ArrayList<>());
-
-
+        movies = FXCollections.observableList(movieLogic.getAllMovies());
     }
 }

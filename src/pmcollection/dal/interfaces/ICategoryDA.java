@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ICategoryDA {
-    Category createCategory(Category category) throws SQLException;
-    List<Category> getAllCategories();
-    Category getCategory(int id);
-    void updateCategory(Category category);
-    void deleteCategory(Category category);
+    Category createCategory(Category category) throws Exception;
+    List<Category> getAllCategories() throws Exception;
+    Category getCategory(int id) throws Exception;
+    void updateCategory(Category category) throws Exception;
+    void deleteCategory(Category category) throws Exception;
 }

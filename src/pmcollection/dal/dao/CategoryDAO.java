@@ -1,10 +1,12 @@
 package pmcollection.dal.dao;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import pmcollection.be.Category;
 import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.interfaces.ICategoryDA;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO implements ICategoryDA {
@@ -15,27 +17,40 @@ public class CategoryDAO implements ICategoryDA {
     }
 
     @Override
-    public Category createCategory(Category category) throws SQLException {
-        Category categoryCreated = null;
+    public List<Category> getAllCategories() throws Exception{
+        List<Category> allCategories = new ArrayList<>();
 
-        Connection con = cm.getConnection();
-        String sqlcommandInsert = "INSERT INTO Category VALUES (?);";
-        PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandInsert, Statement.RETURN_GENERATED_KEYS);
-        pstmtSelect.setString(1, category.getName());
-        pstmtSelect.execute();
+        try(Connection con = cm.getConnection()){
+            String sql = "SELECT * FROM Category";
+            Statement statement = con.createStatement();
 
-        ResultSet rs = pstmtSelect.getGeneratedKeys();
-        while(rs.next()) {
-            categoryCreated = category;
-            categoryCreated.setId(rs.getInt(1));
+            ResultSet rs = statement.executeQuery(sql);
+
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+
+                Category category = new Category(id, name);
+                allCategories.add(category);
+            }
         }
-
-        return categoryCreated;
+        return allCategories;
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return null;
+    public Category createCategory(Category category) throws Exception {
+        try(Connection con = cm.getConnection()){
+            String sql = "INSERT INTO Category VALUES (?);";
+            PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, category.getName());
+            statement.execute();
+
+            ResultSet rs = statement.getGeneratedKeys();
+            while(rs.next()) {
+                category.setId(rs.getInt(1));
+            }
+        }
+        return category;
     }
 
     @Override
@@ -44,12 +59,31 @@ public class CategoryDAO implements ICategoryDA {
     }
 
     @Override
-    public void updateCategory(Category category) {
+    public void updateCategory(Category category) throws Exception {
+        int id = category.getId();
+        String name = category.getName();
 
+        try(Connection con = cm.getConnection()){
+            String sql = "UPDATE Category SET name = ? WHERE id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            statement.execute();
+        }
     }
 
     @Override
-    public void deleteCategory(Category category) {
-
+    public void deleteCategory(Category category) throws Exception {
+        int id = category.getId();
+        try (Connection con = cm.getConnection()) {
+            //todo: implement this
+            //first, delete all occurrences from CatMov using this category id
+            //then delete the category itself
+            String sql = "DELETE FROM Category WHERE id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.execute();
+        }
     }
 }

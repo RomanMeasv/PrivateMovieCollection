@@ -13,7 +13,20 @@ public class CategoryLogic {
     public CategoryLogic(){
         categoryDAO = new CategoryDAO();
     }
-    public List<Category> getAllCategories() {
-        return categoryDAO.getAllCategories();
+
+    public List<Category> getAllCategories() throws Exception {
+        return this.categoryDAO.getAllCategories();
+    }
+
+    public Category addCategory(Category category) throws Exception {
+        return this.categoryDAO.createCategory(category);
+    }
+
+    public void update(Category selected) throws Exception {
+        this.categoryDAO.updateCategory(selected);
+    }
+
+    public void delete(Category selected) throws Exception {
+        this.categoryDAO.deleteCategory(selected);
     }
 }
