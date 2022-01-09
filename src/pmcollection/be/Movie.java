@@ -67,12 +67,14 @@ public class Movie {
     }
 
     /*
-    One movie should only have one category only ONCE!
+    One movie should only have one category only ONCE! TO BE REVIEWED!
      */
-
     public void addCategory(Category category)
     {
-        categories.add(category);
+        if (!categories.contains(category))
+        {
+            categories.add(category);
+        }
     }
 
     public void removeCategory(Category category)
