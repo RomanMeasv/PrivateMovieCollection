@@ -36,12 +36,6 @@ public class MovieDAO implements IMovieDA {
             movieCreated = movie;
             movieCreated.setId(rs.getInt(1));
         }
-
-        //.getCategories() should not produce NullPointerException as we agreed that at least one category should always be assigned in the UI
-        for (Category category : movieCreated.getCategories())
-        {
-            catMovieDAO.createCatMovie(movieCreated, category);
-        }
         return movieCreated;
     }
 
