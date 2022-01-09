@@ -7,6 +7,7 @@ import pmcollection.be.Movie;
 import pmcollection.bll.MovieLogic;
 
 import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public class MovieModel {
@@ -14,11 +15,11 @@ public class MovieModel {
     private MovieLogic movieLogic;
     private ObservableList<Movie> movies;
 
-    public MovieModel(){
+    public MovieModel() throws IOException {
         init();
     }
 
-    private void init(){
+    private void init() throws IOException {
         movieLogic = new MovieLogic();
         //movieLogic.getAllMovies()
         movies = FXCollections.observableList(new ArrayList<>());

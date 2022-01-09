@@ -8,6 +8,8 @@ import pmcollection.be.Movie;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
 
+import java.io.IOException;
+
 
 public class MovieController {
     @FXML
@@ -18,7 +20,7 @@ public class MovieController {
     private CategoryModel categoryModel;
     private MovieModel movieModel;
 
-    public MovieController(){
+    public MovieController() throws IOException {
         categoryModel = new CategoryModel();
         movieModel = new MovieModel();
     }

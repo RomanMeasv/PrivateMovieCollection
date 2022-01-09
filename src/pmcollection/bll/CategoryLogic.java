@@ -1,8 +1,8 @@
 package pmcollection.bll;
 
 import pmcollection.be.Category;
-import pmcollection.dal.CategoryDAO;
-import pmcollection.dal.ICategoryDA;
+import pmcollection.dal.dao.CategoryDAO;
+import pmcollection.dal.interfaces.ICategoryDA;
 
 import java.util.List;
 
