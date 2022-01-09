@@ -1,9 +1,13 @@
 package pmcollection.gui.model;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
 import pmcollection.be.Category;
 import pmcollection.bll.CategoryLogic;
 
+import javax.swing.text.TableView;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryModel {
@@ -16,6 +20,10 @@ public class CategoryModel {
 
     private void init() {
         categoryLogic = new CategoryLogic();
-        categories = FXCollections.observableList(categoryLogic.getAllCategories());
+
+        //categoryLogic.getAllCategories()
+        categories = FXCollections.observableList(new ArrayList<>());
+
+
     }
 }
