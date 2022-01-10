@@ -8,6 +8,8 @@ import pmcollection.dal.interfaces.IMovieDA;
 import pmcollection.dal.dao.MovieDAO;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieLogic {
@@ -20,7 +22,11 @@ public class MovieLogic {
     }
 
     public List<Movie> getAllMovies() throws Exception {
-        return movieDAO.getAllMovies();
+        List<Movie> allMovies = movieDAO.getAllMovies();
+        for (Movie movie : allMovies) {
+            movie.setCategories(catMovieDAO.getCategoriesOfMovieById(movie.getId()));
+        }
+        return allMovies;
     }
 
     public Movie getMovie(int id) throws Exception {
