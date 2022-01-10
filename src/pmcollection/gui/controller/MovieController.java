@@ -10,6 +10,7 @@ import pmcollection.be.Movie;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.CategoryDialog;
+import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.io.IOException;
 import java.net.URL;
@@ -92,7 +93,17 @@ public class MovieController implements Initializable {
     public void filterHandle(ActionEvent event) {
     }
 
-    public void movieAdd(ActionEvent event) {
+    public void movieAdd(ActionEvent event ) {
+        MovieDialog dialog = new MovieDialog();
+        dialog.setCategories(categoryTBV.getItems());
+        Optional<Movie> result = dialog.showAndWait();
+        result.ifPresent(response -> {
+            try {
+                this.movieModel.addMovie(response);
+            } catch (Exception ignored) {
+
+            }
+        });
     }
 
     public void movieEdit(ActionEvent event) {
