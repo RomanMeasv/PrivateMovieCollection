@@ -39,8 +39,11 @@ public class MovieLogic {
         catMovieDAO.linkMovieToItsCategories(movie);
         return mov;
     }
+
     public void update(Movie selected) throws Exception {
         this.movieDAO.updateMovie(selected);
+        this.catMovieDAO.unlinkMovieFromItsCategories(selected);
+        this.catMovieDAO.linkMovieToItsCategories(selected);
     }
 
     public void delete(Movie selected) throws Exception {
