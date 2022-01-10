@@ -22,7 +22,7 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
-    public HashMap<Movie, Category> getAllCatMovies() throws Exception {
+    public HashMap<Movie, Category> getAllCategoryMovieLinks() throws Exception {
         HashMap<Movie, Category> allCatMovies = new HashMap();
         try (Connection con = cm.getConnection()) {
             String sqlcommandSelect = "SELECT * FROM CatMovie;";
@@ -37,12 +37,12 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
-    public List<Category> getCategoriesOfMovieById(int id) throws Exception {
+    public List<Category> getCategoriesOfMovie(Movie movie) throws Exception {
         List<Category>  categoriesSearched = new ArrayList<>();
         try (Connection con = cm.getConnection()) {
             String sqlcommandSelect = "SELECT * FROM CatMovie WHERE movieId=?;";
             PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);
-            pstmtSelect.setInt(1, id);
+            pstmtSelect.setInt(1, movie.getId());
             ResultSet rs = pstmtSelect.executeQuery();
             while (rs.next()) {
                 categoriesSearched.add(categoryDAO.getCategory(rs.getInt("categoryId")));
@@ -54,21 +54,21 @@ public class CatMovieDAO implements ICatMovieDA {
     /*
     Reads the movie objects categories and creates the link in the CatMovie table
      */
-    public void createCategoryLinksToMovie(Movie movie) throws Exception {
+    public void linkMovieToItsCategories(Movie movie) throws Exception {
         for (Category category : movie.getCategories()) {
-            createCatMovie(movie, category);
+            linkCategoryToMovie(category, movie);
         }
     }
 
     @Override
-    public void removeCategoryLinksOfMovie(Movie movie) throws Exception {
+    public void unlinkMovieFromItsCategories(Movie movie) throws Exception {
         for (Category category : movie.getCategories()) {
-            deleteCatMovie(movie, category);
+            unlinkCategoryFromMovie(category, movie);
         }
     }
 
     @Override
-    public void createCatMovie(Movie movie, Category category) throws Exception {
+    public void linkCategoryToMovie(Category category, Movie movie) throws Exception {
         //Here if the category is added already the movie is not checked since it should be done in the Movie.addCategory() method
         try (Connection con = cm.getConnection()) {
             String sqlcommandInsert = "INSERT INTO CatMovie VALUES (?, ?);";
@@ -80,7 +80,7 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
-    public void deleteCatMovie(Movie movie, Category category) throws SQLException {
+    public void unlinkCategoryFromMovie(Category category, Movie movie) throws SQLException {
         try (Connection con = cm.getConnection()) {
             String sql = "DELETE FROM CatMovie WHERE categoryId = ? AND movieId = ?";
             PreparedStatement statement = con.prepareStatement(sql);

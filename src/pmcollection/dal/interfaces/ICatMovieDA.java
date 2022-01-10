@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ICatMovieDA {
-    HashMap<Movie, Category> getAllCatMovies() throws Exception;
-    void createCatMovie(Movie movie, Category category) throws Exception;
-    void deleteCatMovie(Movie movie, Category category) throws Exception;
-    List<Category> getCategoriesOfMovieById(int id) throws Exception;
-    void createCategoryLinksToMovie(Movie movie) throws Exception;
-    void removeCategoryLinksOfMovie(Movie movie) throws Exception;
+    HashMap<Movie, Category> getAllCategoryMovieLinks() throws Exception;
+    List<Category> getCategoriesOfMovie(Movie movie) throws Exception;
+    void linkMovieToItsCategories(Movie movie) throws Exception;
+    void unlinkMovieFromItsCategories(Movie movie) throws Exception;
+    void linkCategoryToMovie(Category category, Movie movie) throws Exception;
+    void unlinkCategoryFromMovie(Category category, Movie movie) throws SQLException;
 }
