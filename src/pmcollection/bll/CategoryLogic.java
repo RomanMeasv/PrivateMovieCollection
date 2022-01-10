@@ -31,7 +31,7 @@ public class CategoryLogic {
     }
 
     public void delete(Category selected) throws Exception {
-
+        catMovieDAO.unlinkCategoryFromMovies(selected);
         this.categoryDAO.deleteCategory(selected);
     }
 }
