@@ -2,6 +2,8 @@ package pmcollection;
 
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
+import pmcollection.bll.MovieLogic;
+import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.dao.CategoryDAO;
 import pmcollection.dal.dao.MovieDAO;
 
@@ -12,13 +14,9 @@ import java.util.ArrayList;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        Category c = new Category( "Punk");
-        CategoryDAO categoryDAO = new CategoryDAO();
-        categoryDAO.createCategory(c);
-
-        Movie m = new Movie("Foo", new ArrayList<>(), 1, LocalDate.of(2000,1,1), "link");
-        m.addCategory(c);
-        MovieDAO mDAO = new MovieDAO();
-        mDAO.createMovie(m);
+        MovieDAO movieDAO = new MovieDAO();
+        Movie m = movieDAO.getMovie(5);
+        m.setName("Boo");
+        movieDAO.updateMovie(m);
     }
 }

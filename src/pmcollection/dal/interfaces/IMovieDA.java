@@ -3,12 +3,13 @@ package pmcollection.dal.interfaces;
 import pmcollection.be.Movie;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IMovieDA {
-    Movie createMovie(Movie movie) throws SQLException;
-    List<Movie> getAllMovies();
-    Movie getMovie(int id);
-    void updateMovie(Movie movie);
-    void deleteMovie(Movie movie);
+    Movie createMovie(Movie movie) throws Exception;
+    List<Movie> getAllMovies() throws Exception;
+    Movie getMovie(int id) throws Exception;
+    void updateMovie(Movie movie) throws Exception;
+    void deleteMovie(Movie movie) throws Exception;
 }

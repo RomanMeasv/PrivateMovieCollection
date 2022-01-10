@@ -54,8 +54,21 @@ public class CategoryDAO implements ICategoryDA {
     }
 
     @Override
-    public Category getCategory(int id) {
-        return null;
+    public Category getCategory(int id) throws Exception {
+        Category categorySearched = null;
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandSelect = "SELECT * FROM Category WHERE id=?;";
+            PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);
+            pstmtSelect.setInt(1, id);
+            ResultSet rs = pstmtSelect.executeQuery();
+            while (rs.next()) {
+                categorySearched = new Category(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                );
+            }
+        }
+        return categorySearched;
     }
 
     @Override
