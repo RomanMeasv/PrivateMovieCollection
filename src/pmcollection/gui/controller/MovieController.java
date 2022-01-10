@@ -14,6 +14,7 @@ import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -102,7 +103,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void filterHandle(ActionEvent event) {
+    public void filterHandle(ActionEvent event) {   
     }
 
     public void movieAdd(ActionEvent event ) {
@@ -145,6 +146,5 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void ratingEdit(ActionEvent event) {
-    }
+
 }
