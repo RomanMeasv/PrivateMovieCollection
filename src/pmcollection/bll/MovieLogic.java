@@ -45,7 +45,7 @@ public class MovieLogic {
 
     public void delete(Movie selected) throws Exception {
         //first delete links then movie
-        this.movieDAO.deleteMovie   (selected);
+        this.movieDAO.deleteMovie (selected);
     }
 
 }

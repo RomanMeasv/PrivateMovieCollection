@@ -73,7 +73,7 @@ public class MovieDialogController implements Initializable {
     }
 
     public void setLastView(LocalDate time) {
-        this.dpLastView.getValue().toString();
+        this.dpLastView.getValue();
     }
 
     public void setLink(String link) {
