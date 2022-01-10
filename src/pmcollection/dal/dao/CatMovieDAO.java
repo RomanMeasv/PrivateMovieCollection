@@ -51,6 +51,15 @@ public class CatMovieDAO implements ICatMovieDA {
         return categoriesSearched;
     }
 
+    /*
+    Reads the movie objects categories and creates the link in the CatMovie table
+     */
+    public void createCategoryLinksToMovie(Movie movie) throws Exception {
+        for (Category category : movie.getCategories()) {
+            createCatMovie(movie, category);
+        }
+    }
+
     @Override
     public void createCatMovie(Movie movie, Category category) throws Exception {
         //Here if the category is added already the movie is not checked since it should be done in the Movie.addCategory() method
