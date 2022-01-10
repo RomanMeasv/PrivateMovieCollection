@@ -1,6 +1,7 @@
 package pmcollection.be;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
@@ -11,10 +12,10 @@ public class Movie {
     private LocalDate lastview;
     private List<Category> categories;
 
-    public Movie(int id, String name, List<Category> categories, float rating, LocalDate lastview, String filelink) {
+    public Movie(int id, String name, float rating, String filelink, LocalDate lastview) {
         this.id = id;
         this.name = name;
-        this.categories = categories;
+        this.categories = new ArrayList<>();
         this.rating = rating;
         this.lastview = lastview;
         this.filelink = filelink;

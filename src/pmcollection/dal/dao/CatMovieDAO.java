@@ -7,18 +7,48 @@ import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.interfaces.ICatMovieDA;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CatMovieDAO implements ICatMovieDA {
     ConnectionManager cm;
+    MovieDAO movieDAO;
+    CategoryDAO categoryDAO;
 
     public CatMovieDAO() {
         this.cm = new ConnectionManager();
+        this.movieDAO = new MovieDAO();
+        this.categoryDAO = new CategoryDAO();
     }
 
     @Override
-    public HashMap<Movie, Category> getAllCatMovies() {
-        return null;
+    public HashMap<Movie, Category> getAllCatMovies() throws Exception {
+        HashMap<Movie, Category> allCatMovies = new HashMap();
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandSelect = "SELECT * FROM CatMovie;";
+            PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);
+            ResultSet rs = pstmtSelect.executeQuery();
+            while(rs.next())
+            {
+                allCatMovies.put(movieDAO.getMovie(rs.getInt("movieId")), categoryDAO.getCategory(rs.getInt("categoryId")));
+            }
+        }
+        return allCatMovies;
+    }
+
+    @Override
+    public ArrayList<Category> getCategoriesOfMovieById(int id) throws Exception {
+        ArrayList<Category>  categoriesSearched = new ArrayList<>();
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandSelect = "SELECT * FROM CatMovie WHERE movieId=?;";
+            PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);
+            pstmtSelect.setInt(1, id);
+            ResultSet rs = pstmtSelect.executeQuery();
+            while (rs.next()) {
+                categoriesSearched.add(categoryDAO.getCategory(rs.getInt("categoryId")));
+            }
+        }
+        return categoriesSearched;
     }
 
     @Override
