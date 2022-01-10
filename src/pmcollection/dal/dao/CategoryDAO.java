@@ -88,14 +88,10 @@ public class CategoryDAO implements ICategoryDA {
 
     @Override
     public void deleteCategory(Category category) throws Exception {
-        int id = category.getId();
         try (Connection con = cm.getConnection()) {
-            //todo: implement this
-            //first, delete all occurrences from CatMov using this category id
-            //then delete the category itself
             String sql = "DELETE FROM Category WHERE id = ?";
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, category.getId());
             statement.execute();
         }
     }

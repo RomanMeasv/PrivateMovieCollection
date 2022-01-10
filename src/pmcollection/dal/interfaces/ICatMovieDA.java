@@ -15,4 +15,5 @@ public interface ICatMovieDA {
     void deleteCatMovie(Movie movie, Category category) throws Exception;
     List<Category> getCategoriesOfMovieById(int id) throws Exception;
     void createCategoryLinksToMovie(Movie movie) throws Exception;
+    void removeCategoryLinksOfMovie(Movie movie) throws Exception;
 }
