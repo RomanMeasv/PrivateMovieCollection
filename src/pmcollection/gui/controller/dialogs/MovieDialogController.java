@@ -16,6 +16,7 @@ import pmcollection.be.Category;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,7 +43,10 @@ public class MovieDialogController implements Initializable {
     }
 
     public List<Category> getCategories() {
-        return this.comboBoxCategories.getItems();
+        //roman take care of this after you are finished with checkcombobox pls
+        List<Category> categories = new ArrayList<>();
+        categories.add(this.comboBoxCategories.getSelectionModel().getSelectedItem());
+        return categories;
     }
 
     public float getRating() {

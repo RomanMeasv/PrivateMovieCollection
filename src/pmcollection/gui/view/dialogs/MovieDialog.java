@@ -21,7 +21,7 @@ public class MovieDialog extends Dialog<Movie> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../MovieDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-            this.setTitle("Add/Edit Song");
+            this.setTitle("Add/Edit Movie");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {
                 if(buttonType == ButtonType.APPLY){

@@ -29,6 +29,10 @@ public class MovieController implements Initializable {
     public TableColumn<Category, String> categoryNameColumn;
     @FXML
     public TableColumn<Movie, String> movieTBVName;
+    @FXML
+    public TableColumn<Movie, String> movieTBVRating;
+    @FXML
+    public TableColumn<Movie, String> movieTBVCategories;
 
     private CategoryModel categoryModel;
     private MovieModel movieModel;
@@ -52,6 +56,9 @@ public class MovieController implements Initializable {
         this.categoryNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.movieTBV.setItems(movieModel.getMovieList());
         this.movieTBVName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.movieTBVRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        this.movieTBVCategories.setCellValueFactory(new PropertyValueFactory<>("categories"));
+
 
     }
 
@@ -129,6 +136,13 @@ public class MovieController implements Initializable {
     }
 
     public void movieRemove(ActionEvent event) {
+        Movie selected = movieTBV.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            try{
+                this.movieModel.deleteMovie(selected);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     public void ratingEdit(ActionEvent event) {
