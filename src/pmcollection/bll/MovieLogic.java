@@ -35,13 +35,16 @@ public class MovieLogic {
         return movie;
     }
     public Movie addMovie(Movie movie) throws Exception {
-        return this.movieDAO.createMovie(movie);
+        Movie mov = this.movieDAO.createMovie(movie);
+        catMovieDAO.createCategoryLinksToMovie(movie);
+        return mov;
     }
     public void update(Movie selected) throws Exception {
         this.movieDAO.updateMovie(selected);
     }
 
     public void delete(Movie selected) throws Exception {
+        //first delete links then movie
         this.movieDAO.deleteMovie   (selected);
     }
 
