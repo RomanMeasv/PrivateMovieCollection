@@ -4,10 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.gui.controller.dialogs.MovieDialogController;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MovieDialog extends Dialog<Movie> {
 
@@ -16,7 +18,7 @@ public class MovieDialog extends Dialog<Movie> {
     public MovieDialog(){
         super();
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieDialogView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../MovieDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
             this.setTitle("Add/Edit Song");
@@ -39,5 +41,9 @@ public class MovieDialog extends Dialog<Movie> {
         controller.setRating(movie.getRating());
         controller.setLastView(movie.getLastview());
         controller.setLink(movie.getFilelink());
+    }
+
+    public void setCategories(List<Category> categories){
+        controller.setCategories(categories);
     }
 }

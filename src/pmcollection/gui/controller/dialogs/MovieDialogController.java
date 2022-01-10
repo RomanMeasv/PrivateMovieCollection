@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.util.converter.LocalDateStringConverter;
@@ -24,19 +26,15 @@ public class MovieDialogController implements Initializable {
     @FXML
     public TextField txtFieldRating;
     @FXML
-    public TextField txtFieldLastView;
+    public DatePicker dpLastView;
     @FXML
     public TextField txtFieldLink;
-
     @FXML
-    public ChoiceBox<Category> choiceBoxCategories;
+    public ComboBox<Category> comboBoxCategories;
     //private ChoiceBoxGenresModel choiceModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*choiceModel = new ChoiceBoxGenresModel();
-        choiceBoxGenre.getItems().addAll(choiceModel.getAllGenres());
-        choiceBoxGenre.setValue(SongGenre.values()[0]);*/
     }
 
     public String getName() {
@@ -44,7 +42,7 @@ public class MovieDialogController implements Initializable {
     }
 
     public List<Category> getCategories() {
-        return this.choiceBoxCategories.getItems();
+        return this.comboBoxCategories.getItems();
     }
 
     public float getRating() {
@@ -53,8 +51,8 @@ public class MovieDialogController implements Initializable {
     }
 
     public LocalDate getLastview() {
-        String text = this.txtFieldLastView.getText();
-        return null;
+        //String date = this.dpLastView.getValue().toString();
+        return this.dpLastView.getValue();
     }
 
     public String getFilelink() {
@@ -67,7 +65,7 @@ public class MovieDialogController implements Initializable {
 
     public void setCategories(List<Category> categories) {
 
-        this.choiceBoxCategories.setItems(FXCollections.observableList(categories));
+        this.comboBoxCategories.setItems(FXCollections.observableList(categories));
     }
 
     public void setRating(float rating) {
@@ -75,7 +73,7 @@ public class MovieDialogController implements Initializable {
     }
 
     public void setLastView(LocalDate time) {
-        this.txtFieldLastView.setText(time.toString());
+        this.dpLastView.getValue().toString();
     }
 
     public void setLink(String link) {
