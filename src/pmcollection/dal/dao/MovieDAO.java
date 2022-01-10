@@ -30,7 +30,7 @@ public class MovieDAO implements IMovieDA {
             pstmtSelect.execute();
             ResultSet rs = pstmtSelect.getGeneratedKeys();
             while (rs.next()) {
-                movie.setId(rs.getInt(1));
+                movie.setId(rs.getInt("id"));
             }
         }
         return movie;
@@ -77,11 +77,12 @@ public class MovieDAO implements IMovieDA {
         try (Connection con = cm.getConnection()) {
             String sqlcommandUpdate = "UPDATE Movie SET name = ?, rating = ?, filelink = ?, lastview = ? WHERE id = ?;";
             PreparedStatement pstmtUpdate = con.prepareStatement(sqlcommandUpdate);
+            pstmtUpdate.setInt(5,movie.getId());
+
             pstmtUpdate.setString(1,movie.getName());
             pstmtUpdate.setFloat(2, movie.getRating());
             pstmtUpdate.setString(3, movie.getFilelink());
             pstmtUpdate.setDate(4, Date.valueOf(movie.getLastview()));
-            pstmtUpdate.setInt(5,movie.getId());
             pstmtUpdate.executeUpdate();
         }
     }
