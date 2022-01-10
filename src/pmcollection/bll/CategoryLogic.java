@@ -27,6 +27,7 @@ public class CategoryLogic {
     }
 
     public void delete(Category selected) throws Exception {
+        //first delete catlinks then cats 
         this.categoryDAO.deleteCategory(selected);
     }
 }

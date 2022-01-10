@@ -27,6 +27,8 @@ public class MovieController implements Initializable {
     public TextField filterField;
     @FXML
     public TableColumn<Category, String> categoryNameColumn;
+    @FXML
+    public TableColumn<Movie, String> movieTBVName;
 
     private CategoryModel categoryModel;
     private MovieModel movieModel;
@@ -49,6 +51,7 @@ public class MovieController implements Initializable {
         this.categoryTBV.setItems(categoryModel.getCategoryList());
         this.categoryNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.movieTBV.setItems(movieModel.getMovieList());
+        this.movieTBVName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     }
 
