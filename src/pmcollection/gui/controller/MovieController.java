@@ -12,8 +12,9 @@ import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.CategoryDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
-import java.io.IOException;
 import java.net.URL;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -106,9 +107,8 @@ public class MovieController implements Initializable {
     public void filterHandle(ActionEvent event) {   
     }
 
-    public void movieAdd(ActionEvent event ) {
-        MovieDialog dialog = new MovieDialog();
-        dialog.setCategories(categoryTBV.getItems());
+    public void movieAdd(ActionEvent event) {
+        MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
         Optional<Movie> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
@@ -122,7 +122,7 @@ public class MovieController implements Initializable {
     public void movieEdit(ActionEvent event) {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if(selected != null) {
-            MovieDialog dialog = new MovieDialog();
+            MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
             dialog.setFields(selected);
             Optional<Movie> result = dialog.showAndWait();
             result.ifPresent(response -> {

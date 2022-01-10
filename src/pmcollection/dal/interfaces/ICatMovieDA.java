@@ -1,11 +1,9 @@
 package pmcollection.dal.interfaces;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,4 +14,5 @@ public interface ICatMovieDA {
     void unlinkMovieFromItsCategories(Movie movie) throws Exception;
     void linkCategoryToMovie(Category category, Movie movie) throws Exception;
     void unlinkCategoryFromMovie(Category category, Movie movie) throws SQLException;
+    void unlinkCategoryFromMovies(Category category) throws Exception;
 }

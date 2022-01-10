@@ -15,12 +15,13 @@ public class MovieDialog extends Dialog<Movie> {
 
     private MovieDialogController controller;
 
-    public MovieDialog(){
+    public MovieDialog(List<Category> allCategories){
         super();
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../MovieDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
+            controller.setAllCategories(allCategories);
             this.setTitle("Add/Edit Movie");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {
@@ -41,9 +42,5 @@ public class MovieDialog extends Dialog<Movie> {
         controller.setRating(movie.getRating());
         controller.setLastView(movie.getLastview());
         controller.setLink(movie.getFilelink());
-    }
-
-    public void setCategories(List<Category> categories){
-        controller.setCategories(categories);
     }
 }

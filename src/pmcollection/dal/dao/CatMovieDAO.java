@@ -89,4 +89,14 @@ public class CatMovieDAO implements ICatMovieDA {
             statement.execute();
         }
     }
+
+    @Override
+    public void unlinkCategoryFromMovies(Category category) throws Exception{
+        try (Connection con = cm.getConnection()) {
+            String sql = "DELETE FROM CatMovie WHERE categoryId = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, category.getId());
+            statement.execute();
+        }
+    }
 }

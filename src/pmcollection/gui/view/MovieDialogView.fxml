@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane expanded="true" prefHeight="277.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.dialogs.MovieDialogController">
+<DialogPane expanded="true" prefHeight="277.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.dialogs.MovieDialogController">
    <content>
       <GridPane fx:id="datePickerLastView" prefHeight="221.0" prefWidth="246.0">
         <columnConstraints>
@@ -38,6 +38,7 @@
             <Button mnemonicParsing="false" onAction="#handleChoose" text="Choose..." GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <ComboBox fx:id="comboBoxCategories" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <DatePicker fx:id="dpLastView" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#editCategories" text="Edit" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </content>

@@ -30,7 +30,7 @@ public class MovieDAO implements IMovieDA {
             pstmtSelect.execute();
             ResultSet rs = pstmtSelect.getGeneratedKeys();
             while (rs.next()) {
-                movie.setId(rs.getInt("id"));
+                movie.setId(rs.getInt(1));
             }
         }
         return movie;
