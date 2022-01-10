@@ -16,4 +16,5 @@ public interface ICatMovieDA {
     void unlinkMovieFromItsCategories(Movie movie) throws Exception;
     void linkCategoryToMovie(Category category, Movie movie) throws Exception;
     void unlinkCategoryFromMovie(Category category, Movie movie) throws SQLException;
+    void unlinkCategoryFromMovies(Category category) throws Exception;
 }

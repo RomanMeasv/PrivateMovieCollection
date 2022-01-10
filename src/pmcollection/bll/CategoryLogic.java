@@ -1,7 +1,9 @@
 package pmcollection.bll;
 
 import pmcollection.be.Category;
+import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.dao.CategoryDAO;
+import pmcollection.dal.interfaces.ICatMovieDA;
 import pmcollection.dal.interfaces.ICategoryDA;
 
 import java.util.List;
@@ -9,9 +11,11 @@ import java.util.List;
 public class CategoryLogic {
 
     private ICategoryDA categoryDAO;
+    private ICatMovieDA catMovieDAO;
 
     public CategoryLogic(){
         categoryDAO = new CategoryDAO();
+        catMovieDAO = new CatMovieDAO();
     }
 
     public List<Category> getAllCategories() throws Exception {
@@ -27,7 +31,7 @@ public class CategoryLogic {
     }
 
     public void delete(Category selected) throws Exception {
-        //first delete catlinks then cats
+
         this.categoryDAO.deleteCategory(selected);
     }
 }
