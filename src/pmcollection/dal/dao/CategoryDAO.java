@@ -1,6 +1,5 @@
 package pmcollection.dal.dao;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import pmcollection.be.Category;
 import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.interfaces.ICategoryDA;
@@ -19,18 +18,14 @@ public class CategoryDAO implements ICategoryDA {
     @Override
     public List<Category> getAllCategories() throws Exception{
         List<Category> allCategories = new ArrayList<>();
-
         try(Connection con = cm.getConnection()){
             String sql = "SELECT * FROM Category";
             Statement statement = con.createStatement();
-
             ResultSet rs = statement.executeQuery(sql);
-
             while(rs.next()){
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-
-                Category category = new Category(id, name);
+                Category category = new Category(
+                        rs.getInt("id"),
+                        rs.getString("name"));
                 allCategories.add(category);
             }
         }
@@ -44,7 +39,6 @@ public class CategoryDAO implements ICategoryDA {
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, category.getName());
             statement.execute();
-
             ResultSet rs = statement.getGeneratedKeys();
             while(rs.next()) {
                 category.setId(rs.getInt(1));
@@ -79,9 +73,9 @@ public class CategoryDAO implements ICategoryDA {
         try(Connection con = cm.getConnection()){
             String sql = "UPDATE Category SET name = ? WHERE id = ?";
             PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(2, category.getId());
 
-            statement.setString(1, name);
-            statement.setInt(2, id);
+            statement.setString(1, category.getName());
             statement.execute();
         }
     }
