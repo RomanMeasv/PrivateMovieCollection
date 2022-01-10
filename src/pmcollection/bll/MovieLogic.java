@@ -1,5 +1,6 @@
 package pmcollection.bll;
 
+import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.interfaces.ICatMovieDA;
@@ -27,4 +28,15 @@ public class MovieLogic {
         movie.setCategories(catMovieDAO.getCategoriesOfMovieById(id));
         return movie;
     }
+    public Movie addMovie(Movie movie) throws Exception {
+        return this.movieDAO.createMovie(movie);
+    }
+    public void update(Movie selected) throws Exception {
+        this.movieDAO.updateMovie(selected);
+    }
+
+    public void delete(Movie selected) throws Exception {
+        this.movieDAO.deleteMovie   (selected);
+    }
+
 }

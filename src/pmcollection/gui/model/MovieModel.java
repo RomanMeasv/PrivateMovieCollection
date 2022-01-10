@@ -24,6 +24,10 @@ public class MovieModel {
         movieLogic = new MovieLogic();
         movies = FXCollections.observableList(movieLogic.getAllMovies());
     }
+    public ObservableList<Movie> getMovieList() {
+        return this.movies;
+    }
+
 
     public void addMovie(Movie response) throws Exception {
         Movie addedToDB = this.movieLogic.addMovie(response);

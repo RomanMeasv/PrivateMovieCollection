@@ -48,6 +48,8 @@ public class MovieController implements Initializable {
     private void initTables() {
         this.categoryTBV.setItems(categoryModel.getCategoryList());
         this.categoryNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.movieTBV.setItems(movieModel.getMovieList());
+
     }
 
     public void categoryAdd(ActionEvent event) {
