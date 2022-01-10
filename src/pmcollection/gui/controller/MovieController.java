@@ -112,6 +112,20 @@ public class MovieController implements Initializable {
     }
 
     public void movieEdit(ActionEvent event) {
+        Movie selected = movieTBV.getSelectionModel().getSelectedItem();
+        if(selected != null) {
+            MovieDialog dialog = new MovieDialog();
+            dialog.setFields(selected);
+            Optional<Movie> result = dialog.showAndWait();
+            result.ifPresent(response -> {
+                try {
+                    response.setId(selected.getId());
+                    this.movieModel.editMovie(selected, response);
+                } catch (Exception ignored) {
+
+                }
+            });
+        }
     }
 
     public void movieRemove(ActionEvent event) {

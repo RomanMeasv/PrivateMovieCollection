@@ -47,6 +47,7 @@ public class MovieLogic {
     }
 
     public void delete(Movie selected) throws Exception {
+
         catMovieDAO.unlinkMovieFromItsCategories(selected);
         this.movieDAO.deleteMovie   (selected);
     }

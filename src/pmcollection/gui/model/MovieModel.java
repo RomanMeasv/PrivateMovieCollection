@@ -39,7 +39,7 @@ public class MovieModel {
         this.movies.set(this.movies.indexOf(selected), response);
     }
 
-    public void deleteCategory(Movie selected) throws Exception {
+    public void deleteMovie(Movie selected) throws Exception {
         this.movieLogic.delete(selected);
         this.movies.remove(selected);
     }
