@@ -24,19 +24,19 @@ public class MovieLogic {
     public List<Movie> getAllMovies() throws Exception {
         List<Movie> allMovies = movieDAO.getAllMovies();
         for (Movie movie : allMovies) {
-            movie.setCategories(catMovieDAO.getCategoriesOfMovieById(movie.getId()));
+            movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
         }
         return allMovies;
     }
 
     public Movie getMovie(int id) throws Exception {
         Movie movie = movieDAO.getMovie(id);
-        movie.setCategories(catMovieDAO.getCategoriesOfMovieById(id));
+        movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
         return movie;
     }
     public Movie addMovie(Movie movie) throws Exception {
         Movie mov = this.movieDAO.createMovie(movie);
-        catMovieDAO.createCategoryLinksToMovie(movie);
+        catMovieDAO.linkMovieToItsCategories(movie);
         return mov;
     }
     public void update(Movie selected) throws Exception {
@@ -44,7 +44,7 @@ public class MovieLogic {
     }
 
     public void delete(Movie selected) throws Exception {
-        //first delete links then movie
+        catMovieDAO.unlinkMovieFromItsCategories(selected);
         this.movieDAO.deleteMovie   (selected);
     }
 
