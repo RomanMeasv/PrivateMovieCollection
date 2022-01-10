@@ -23,18 +23,19 @@ public class MovieDAO implements IMovieDA {
     @Override
     public Movie createMovie(Movie movie) throws SQLException {
         Movie movieCreated=null;
-        Connection con = cm.getConnection();
-        String sqlcommandInsert = "INSERT INTO Movie VALUES (?, ?, ?, ?);";
-        PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandInsert, Statement.RETURN_GENERATED_KEYS);
-        pstmtSelect.setString(1,movie.getName());
-        pstmtSelect.setFloat(2, movie.getRating());
-        pstmtSelect.setString(3, movie.getFilelink());
-        pstmtSelect.setDate(4, Date.valueOf(movie.getLastview()));
-        pstmtSelect.execute();
-        ResultSet rs = pstmtSelect.getGeneratedKeys();
-        while(rs.next()) {
-            movieCreated = movie;
-            movieCreated.setId(rs.getInt(1));
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandInsert = "INSERT INTO Movie VALUES (?, ?, ?, ?);";
+            PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandInsert, Statement.RETURN_GENERATED_KEYS);
+            pstmtSelect.setString(1, movie.getName());
+            pstmtSelect.setFloat(2, movie.getRating());
+            pstmtSelect.setString(3, movie.getFilelink());
+            pstmtSelect.setDate(4, Date.valueOf(movie.getLastview()));
+            pstmtSelect.execute();
+            ResultSet rs = pstmtSelect.getGeneratedKeys();
+            while (rs.next()) {
+                movieCreated = movie;
+                movieCreated.setId(rs.getInt(1));
+            }
         }
         return movieCreated;
     }

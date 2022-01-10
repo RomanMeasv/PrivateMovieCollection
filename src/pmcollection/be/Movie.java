@@ -11,6 +11,15 @@ public class Movie {
     private LocalDate lastview;
     private List<Category> categories;
 
+    public Movie(int id, String name, List<Category> categories, float rating, LocalDate lastview, String filelink) {
+        this.id = id;
+        this.name = name;
+        this.categories = categories;
+        this.rating = rating;
+        this.lastview = lastview;
+        this.filelink = filelink;
+    }
+
     public Movie(String name, List<Category> categories, float rating, LocalDate lastview, String filelink) {
         this.name = name;
         this.categories = categories;

@@ -14,7 +14,7 @@ public class MovieLogic {
         movieDAO = new MovieDAO();
     }
 
-    public List<Movie> getAllMovies(){
+    public List<Movie> getAllMovies() throws Exception {
         return movieDAO.getAllMovies();
     }
 }

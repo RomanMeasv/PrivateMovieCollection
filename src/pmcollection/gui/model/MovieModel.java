@@ -15,11 +15,11 @@ public class MovieModel {
     private MovieLogic movieLogic;
     private ObservableList<Movie> movies;
 
-    public MovieModel() throws IOException {
+    public MovieModel() throws Exception {
         init();
     }
 
-    private void init() throws IOException {
+    private void init() throws Exception {
         movieLogic = new MovieLogic();
         movies = FXCollections.observableList(movieLogic.getAllMovies());
     }
