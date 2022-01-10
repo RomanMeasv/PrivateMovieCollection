@@ -23,6 +23,10 @@ public class MovieDialog extends Dialog<Movie> {
             DialogPane dp = loader.load();
             controller = loader.getController();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+            controller.setAllCategories(allCategories);
+>>>>>>> Stashed changes
 =======
             controller.setAllCategories(allCategories);
 >>>>>>> Stashed changes
