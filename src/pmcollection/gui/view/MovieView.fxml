@@ -27,6 +27,8 @@
       <TableView fx:id="movieTBV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <columns>
             <TableColumn fx:id="movieTBVName" prefWidth="180.79998779296875" text="Name" />
+            <TableColumn fx:id="movieTBVRating" prefWidth="75.0" text="Rating" />
+            <TableColumn fx:id="movieTBVCategories" prefWidth="243.199951171875" text="Categories" />
          </columns></TableView>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
          <children>
@@ -48,7 +50,6 @@
                   <Button mnemonicParsing="false" onAction="#movieAdd" text="Add Movie" />
                   <Button mnemonicParsing="false" onAction="#movieEdit" text="Edit Movie" />
                   <Button mnemonicParsing="false" onAction="#movieRemove" text="Remove Movie" />
-                  <Button mnemonicParsing="false" onAction="#ratingEdit" text="Edit Movie Rating" />
                </children>
             </HBox>
          </children>
