@@ -61,6 +61,13 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
+    public void removeCategoryLinksOfMovie(Movie movie) throws Exception {
+        for (Category category : movie.getCategories()) {
+            deleteCatMovie(movie, category);
+        }
+    }
+
+    @Override
     public void createCatMovie(Movie movie, Category category) throws Exception {
         //Here if the category is added already the movie is not checked since it should be done in the Movie.addCategory() method
         try (Connection con = cm.getConnection()) {
@@ -73,7 +80,13 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
-    public void deleteCatMovie(Movie movie, Category category) {
-
+    public void deleteCatMovie(Movie movie, Category category) throws SQLException {
+        try (Connection con = cm.getConnection()) {
+            String sql = "DELETE FROM CatMovie WHERE categoryId = ? AND movieId = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, category.getId());
+            statement.setInt(2, movie.getId());
+            statement.execute();
+        }
     }
 }
