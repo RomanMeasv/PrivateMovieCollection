@@ -9,7 +9,6 @@ import pmcollection.be.Movie;
 import pmcollection.gui.controller.dialogs.MovieDialogController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDialog extends Dialog<Movie> {
@@ -22,14 +21,7 @@ public class MovieDialog extends Dialog<Movie> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../MovieDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
             controller.setAllCategories(allCategories);
->>>>>>> Stashed changes
-=======
-            controller.setAllCategories(allCategories);
->>>>>>> Stashed changes
             this.setTitle("Add/Edit Movie");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {

@@ -107,7 +107,7 @@ public class MovieController implements Initializable {
     }
 
     public void movieAdd(ActionEvent event) {
-        MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryTBV.getItems()));
+        MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
         Optional<Movie> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
@@ -121,7 +121,7 @@ public class MovieController implements Initializable {
     public void movieEdit(ActionEvent event) {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if(selected != null) {
-            MovieDialog dialog = new MovieDialog();
+            MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
             dialog.setFields(selected);
             Optional<Movie> result = dialog.showAndWait();
             result.ifPresent(response -> {

@@ -46,10 +46,7 @@ public class MovieDialogController {
     }
 
     public List<Category> getCategories() {
-        //roman take care of this after you are finished with checkcombobox pls
-        List<Category> categories = new ArrayList<>();
-        categories.add(this.comboBoxCategories.getSelectionModel().getSelectedItem());
-        return categories;
+        return new ArrayList<>(this.comboBoxCategories.getItems());
     }
 
     public float getRating() {
@@ -79,7 +76,7 @@ public class MovieDialogController {
     }
 
     public void setLastView(LocalDate time) {
-        this.dpLastView.getValue();
+        this.dpLastView.setValue(time);
     }
 
     public void setLink(String link) {
