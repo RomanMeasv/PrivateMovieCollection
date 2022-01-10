@@ -77,14 +77,11 @@ public class Movie {
     }
 
     /*
-    One movie should only have one category only ONCE! TO BE REVIEWED!
+    One movie should only have one category only ONCE! But this is taken care of int the UI!
      */
     public void addCategory(Category category)
     {
-        if (!categories.contains(category))
-        {
             categories.add(category);
-        }
     }
 
     public void removeCategory(Category category)
