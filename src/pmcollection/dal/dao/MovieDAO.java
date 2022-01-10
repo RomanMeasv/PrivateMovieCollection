@@ -73,8 +73,17 @@ public class MovieDAO implements IMovieDA {
     }
 
     @Override
-    public void updateMovie(Movie movie) {
-
+    public void updateMovie(Movie movie) throws Exception {
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandUpdate = "UPDATE Movie SET name = ?, rating = ?, filelink = ?, lastview = ? WHERE id = ?;";
+            PreparedStatement pstmtUpdate = con.prepareStatement(sqlcommandUpdate);
+            pstmtUpdate.setString(1,movie.getName());
+            pstmtUpdate.setFloat(2, movie.getRating());
+            pstmtUpdate.setString(3, movie.getFilelink());
+            pstmtUpdate.setDate(4, Date.valueOf(movie.getLastview()));
+            pstmtUpdate.setInt(5,movie.getId());
+            pstmtUpdate.executeUpdate();
+        }
     }
 
     @Override

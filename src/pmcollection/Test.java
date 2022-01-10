@@ -14,10 +14,9 @@ import java.util.ArrayList;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        MovieDAO movieDAO= new MovieDAO();
-        for (Movie m : movieDAO.getAllMovies())
-        {
-            System.out.println(m.getName());
-        }
+        MovieDAO movieDAO = new MovieDAO();
+        Movie m = movieDAO.getMovie(5);
+        m.setName("Boo");
+        movieDAO.updateMovie(m);
     }
 }
