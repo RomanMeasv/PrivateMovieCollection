@@ -10,17 +10,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.util.converter.LocalDateStringConverter;
 import pmcollection.be.Category;
+import pmcollection.gui.view.dialogs.CategoryDialog;
+import pmcollection.gui.view.dialogs.CategoryEditDialog;
 
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MovieDialogController implements Initializable {
+public class MovieDialogController {
 
     @FXML
     public TextField txtFieldName;
@@ -32,10 +34,11 @@ public class MovieDialogController implements Initializable {
     public TextField txtFieldLink;
     @FXML
     public ComboBox<Category> comboBoxCategories;
-    //private ChoiceBoxGenresModel choiceModel;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private List<Category> allCategories;
+
+    public MovieDialogController(){
+        allCategories = new ArrayList<>();
     }
 
     public String getName() {
@@ -55,7 +58,6 @@ public class MovieDialogController implements Initializable {
     }
 
     public LocalDate getLastview() {
-        //String date = this.dpLastView.getValue().toString();
         return this.dpLastView.getValue();
     }
 
@@ -96,5 +98,21 @@ public class MovieDialogController implements Initializable {
             String filePath = file.getPath();
             txtFieldLink.setText(filePath);
         }
+    }
+
+    public void editCategories(ActionEvent actionEvent) {
+        CategoryEditDialog dialog = new CategoryEditDialog(this.allCategories, this.getCategories());
+        Optional<List<Category>> result = dialog.showAndWait();
+        result.ifPresent(response -> {
+            try {
+                this.setCategories(response);
+            } catch (Exception ignored) {
+
+            }
+        });
+    }
+
+    public void setAllCategories(List<Category> allCategories) {
+        this.allCategories = allCategories;
     }
 }
