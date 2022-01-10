@@ -3,6 +3,7 @@ package pmcollection.dal.interfaces;
 import pmcollection.be.Movie;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IMovieDA {

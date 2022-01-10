@@ -1,6 +1,5 @@
 package pmcollection.dal.dao;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.dal.ConnectionManager;
@@ -9,6 +8,7 @@ import pmcollection.dal.interfaces.ICatMovieDA;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CatMovieDAO implements ICatMovieDA {
     ConnectionManager cm;
@@ -37,8 +37,8 @@ public class CatMovieDAO implements ICatMovieDA {
     }
 
     @Override
-    public ArrayList<Category> getCategoriesOfMovieById(int id) throws Exception {
-        ArrayList<Category>  categoriesSearched = new ArrayList<>();
+    public List<Category> getCategoriesOfMovieById(int id) throws Exception {
+        List<Category>  categoriesSearched = new ArrayList<>();
         try (Connection con = cm.getConnection()) {
             String sqlcommandSelect = "SELECT * FROM CatMovie WHERE movieId=?;";
             PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);

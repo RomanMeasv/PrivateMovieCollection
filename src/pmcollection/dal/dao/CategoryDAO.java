@@ -54,7 +54,7 @@ public class CategoryDAO implements ICategoryDA {
     }
 
     @Override
-    public Category getCategory(int id) throws SQLException {
+    public Category getCategory(int id) throws Exception {
         Category categorySearched = null;
         try (Connection con = cm.getConnection()) {
             String sqlcommandSelect = "SELECT * FROM Category WHERE id=?;";

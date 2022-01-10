@@ -5,6 +5,7 @@ import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.interfaces.IMovieDA;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDAO implements IMovieDA {
@@ -36,8 +37,18 @@ public class MovieDAO implements IMovieDA {
     }
 
     @Override
-    public List<Movie> getAllMovies() {
-        return null;
+    public List<Movie> getAllMovies() throws Exception {
+        List<Movie> allMovies = new ArrayList();
+        try (Connection con = cm.getConnection()) {
+            String sqlcommandSelect = "SELECT * FROM Movie;";
+            PreparedStatement pstmtSelect = con.prepareStatement(sqlcommandSelect);
+            ResultSet rs = pstmtSelect.executeQuery();
+            while(rs.next())
+            {
+                allMovies.add(getMovie(rs.getInt("id")));
+            }
+        }
+        return allMovies;
     }
 
     @Override
