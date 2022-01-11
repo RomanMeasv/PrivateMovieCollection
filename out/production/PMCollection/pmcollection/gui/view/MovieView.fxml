@@ -45,11 +45,21 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <TextField fx:id="nameFilterField" promptText="name filter" VBox.vgrow="ALWAYS" />
-                        <TextField fx:id="categoryFilterField" promptText="category filter (separate with comma)" />
-                        <TextField fx:id="ratingFilterField" promptText="rating filter (from-to)" />
+                        <TextField fx:id="categoryFilterField" editable="false" promptText="category filter (separate with comma)" />
+                        <HBox>
+                           <children>
+                              <TextField fx:id="ratingMinField" promptText="rating from (min)" />
+                              <TextField fx:id="ratingMaxField" promptText="rating to (max)" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="50.0" mnemonicParsing="false" onAction="#filterHandle" prefHeight="75.0" prefWidth="70.0" text="filter" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#filterHandle" prefHeight="25.0" prefWidth="100.0" text="filter" />
+                        <Button maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#editCategoryFilter" prefHeight="25.0" prefWidth="100.0" text="edit" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
