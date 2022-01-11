@@ -44,8 +44,8 @@ public class MovieModel {
         this.movies.remove(selected);
     }
 
-    public void filterMovies(String nameFilterString, String categoryFilterString, String ratingFilterString)throws Exception{
+    public void filterMovies(String name, List<Category> categories, float min, float max)throws Exception{
         movies.clear();
-        movies.addAll(movieLogic.filteredMovies(nameFilterString, categoryFilterString, ratingFilterString));
+        movies.addAll(movieLogic.filterMovies(name, categories, min, max));
     }
 }

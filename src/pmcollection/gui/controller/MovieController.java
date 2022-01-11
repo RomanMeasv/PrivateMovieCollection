@@ -42,7 +42,7 @@ public class MovieController implements Initializable {
     @FXML
     public TextField categoryFilterField;
     @FXML
-    public TextField ratingFilterField;
+    public TextField ratingMinField, ratingMaxField;
     @FXML
     public TableColumn<Category, String> categoryNameColumn;
     @FXML
@@ -177,7 +177,7 @@ public class MovieController implements Initializable {
     }
     public void filterHandle (ActionEvent event) {
         try {
-            this.movieModel.filterMovies(nameFilterField.getText(), categoryFilterField.getText(), ratingFilterField.getText());
+            this.movieModel.filterMovies(nameFilterField.getText(), queryToList(categoryFilterField.getText()), queryToFloat(ratingMinField.getText()), queryToFloat(ratingMaxField.getText()));
         } catch (Exception Ignored) {
 
         }
@@ -216,5 +216,15 @@ public class MovieController implements Initializable {
             }
         }
         return categories;
+    }
+
+    public float queryToFloat(String query)
+    {
+        try {
+            return  Float.parseFloat(query);
+        } catch (Exception ignored)
+        {
+            return 0;
+        }
     }
 }

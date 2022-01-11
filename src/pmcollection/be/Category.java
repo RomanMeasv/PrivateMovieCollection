@@ -32,4 +32,21 @@ public class Category {
     public String toString(){
         return this.name;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof Category))
+        {
+            return false;
+        }
+
+        Category c = (Category) o;
+
+        return this.id == c.id;
+    }
 }

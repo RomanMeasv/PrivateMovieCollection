@@ -53,19 +53,19 @@ public class MovieLogic {
         this.movieDAO.deleteMovie(selected);
     }
 
-    public List<Movie> filteredMovies(String nameFilterString, String categoryFilterString, String ratingFilterString) throws Exception {
+    public List<Movie> filterMovies(String name, List<Category> categories, float min, float max) throws Exception {
         List<Movie> filteredMovies = getAllMovies();
-        if (!nameFilterString.isEmpty())
+        if (!name.isEmpty())
         {
-            filteredMovies = filterMoviesByName(filteredMovies, nameFilterString);
+            filteredMovies = filterMoviesByName(filteredMovies, name);
         }
-        if (!categoryFilterString.isEmpty())
+        if (!categories.isEmpty())
         {
-            filteredMovies = filterMoviesByCategory(filteredMovies, categoryFilterString);
+            filteredMovies = filterMoviesByCategory(filteredMovies, categories);
         }
-        if (!ratingFilterString.isEmpty())
+        if (min != 0 || max != 0)
         {
-            filteredMovies = filterMoviesByRating(filteredMovies, ratingFilterString);
+            filteredMovies = filterMoviesByRating(filteredMovies, min, max);
         }
         return filteredMovies;
     }
@@ -75,19 +75,18 @@ public class MovieLogic {
         return movies.stream().filter(movie -> movie.getName().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))).toList();
     }
 
-    public List<Movie> filterMoviesByCategory(List<Movie> movies, String query)
+    public List<Movie> filterMoviesByCategory(List<Movie> movies, List<Category> categories)
     {
-        return movies.stream().filter(movie -> movie.getCategories().toString().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))).toList();
+        return movies.stream()
+                .filter(movie -> movie.getCategories().containsAll(categories))
+                .toList();
     }
 
-    public List<Movie> filterMoviesByRating(List<Movie> movies, String query)
+    public List<Movie> filterMoviesByRating(List<Movie> movies, float min, float max)
     {
-        if (query.split("-").length == 2)
-        {
-            int from = Integer.parseInt(query.split("-")[0]);
-            int to = Integer.parseInt(query.split("-")[1]);
-            return movies.stream().filter(movie -> movie.getRating() >= from && movie.getRating() <= to).toList();
-        }
-        return movies;
+        return movies.stream()
+                .filter(movie -> (min > 0 ? min : 0) <= movie.getRating())
+                .filter(movie -> (max > 0 ? max : 10) >= movie.getRating())
+                .toList();
     }
 }
