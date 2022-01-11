@@ -1,10 +1,21 @@
 package pmcollection.gui.controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.gui.model.CategoryModel;
@@ -12,12 +23,10 @@ import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.CategoryDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
+import java.net.URI;
 import java.net.URL;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class MovieController implements Initializable {
@@ -60,8 +69,6 @@ public class MovieController implements Initializable {
         this.movieTBVName.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.movieTBVRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         this.movieTBVCategories.setCellValueFactory(new PropertyValueFactory<>("categories"));
-
-
     }
 
     public void categoryAdd(ActionEvent event) {
@@ -146,5 +153,27 @@ public class MovieController implements Initializable {
         }
     }
 
+    public void movieTableClick(MouseEvent event) {
+        if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
+            Movie selected = this.movieTBV.getSelectionModel().getSelectedItem();
+            if(selected != null){
+                Stage videoStage = new Stage();
+                videoStage.setTitle("Media Player");
 
+                Group root = new Group();
+                Scene scene = new Scene(root, 720, 480);
+
+                Media media = new Media(selected.getFilelink());
+                MediaPlayer mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.setAutoPlay(true);
+
+                MediaControl mediaControl = new MediaControl(mediaPlayer);
+                scene.setRoot(mediaControl);
+
+                videoStage.setScene(scene);
+                videoStage.sizeToScene();
+                videoStage.show();
+            }
+        }
+    }
 }
