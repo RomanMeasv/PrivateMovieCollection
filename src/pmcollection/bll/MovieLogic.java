@@ -52,18 +52,18 @@ public class MovieLogic {
         this.movieDAO.deleteMovie(selected);
     }
 
-    public List<Movie> filteredMovies(String filterString) throws Exception {
+    public List<Movie> filteredMovies(String nameFilterString, String categoryFilterString, String ratingFilterString) throws Exception {
         List<Movie> allMovies = getAllMovies();
         List<Movie> filteredMovies = new ArrayList<>();
         for (Movie movie : allMovies) {
-            if (movie.getName().toLowerCase().contains(filterString.toLowerCase())) {
+            if (movie.getName().toLowerCase().contains(nameFilterString.toLowerCase())) {
                 filteredMovies.add(movie);
             }
-            else if (movie.getCategories().toString().toLowerCase().contains(filterString.toLowerCase())){
+            else if (movie.getCategories().toString().toLowerCase().contains(nameFilterString.toLowerCase())){
                 filteredMovies.add(movie);
             }
         }
-        return filterString.isEmpty() ? allMovies : filteredMovies;
+        return nameFilterString.isEmpty() ? allMovies : filteredMovies;
     }
 
 

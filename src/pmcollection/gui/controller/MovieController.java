@@ -171,14 +171,12 @@ public class MovieController implements Initializable {
                 Media media = new Media(selected.getFilelink());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setAutoPlay(true);
-
-
             }
         }
     }
     public void filterHandle (ActionEvent event){
         try {
-            this.movieModel.filterMovies(nameFilterField.getText());
+            this.movieModel.filterMovies(nameFilterField.getText(), categoryFilterField.getText(), ratingFilterField.getText());
         } catch (Exception Ignored) {
 
         }
