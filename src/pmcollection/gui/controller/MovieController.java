@@ -1,13 +1,11 @@
 package pmcollection.gui.controller;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,9 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.gui.model.CategoryModel;
@@ -26,7 +22,9 @@ import pmcollection.gui.view.dialogs.CategoryDialog;
 import pmcollection.gui.view.dialogs.CategoryEditDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
-import java.net.URI;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.util.*;
@@ -159,25 +157,37 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void movieTableClick(MouseEvent event) {
+    public void movieTableClick(MouseEvent event) throws IOException {
         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
             Movie selected = this.movieTBV.getSelectionModel().getSelectedItem();
             if (selected != null) {
+                //load fxml file, create new scene and new stage
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
+                Parent root = loader.load();
+                MoviePlayerController controller = loader.getController();
+                Scene scene = new Scene(root);
                 Stage videoStage = new Stage();
-                videoStage.setTitle("Media Player");
+                videoStage.setTitle("Video Player");
 
-                Group root = new Group();
-                Scene scene = new Scene(root, 720, 480);
-
-                Media media = new Media(selected.getFilelink());
+                //create media player
+                File file = new File(selected.getFilelink());
+                Media media = new Media(file.toURI().toURL().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(true);
+                mediaPlayer.setAutoPlay(false);
+
+                //init controller & show stage
+                controller.init(mediaPlayer);
+                videoStage.setScene(scene);
+                videoStage.show();
             }
         }
     }
     public void filterHandle (ActionEvent event) {
         try {
-            this.movieModel.filterMovies(nameFilterField.getText(), queryToList(categoryFilterField.getText()), queryToFloat(ratingMinField.getText()), queryToFloat(ratingMaxField.getText()));
+            this.movieModel.filterMovies(nameFilterField.getText(),
+                    queryToList(categoryFilterField.getText()),
+                    queryToFloat(ratingMinField.getText()),
+                    queryToFloat(ratingMaxField.getText()));
         } catch (Exception Ignored) {
 
         }
@@ -218,11 +228,11 @@ public class MovieController implements Initializable {
         return categories;
     }
 
-    public float queryToFloat(String query)
+    private float queryToFloat(String query)
     {
         try {
             return  Float.parseFloat(query);
-        } catch (Exception ignored)
+        } catch (Exception exception)
         {
             return 0;
         }

@@ -16,7 +16,7 @@ public class CategoryDialog extends Dialog<Category> {
     public CategoryDialog(){
         super();
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../CategoryDialogView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CategoryDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
             this.setTitle("Add/Edit Category");

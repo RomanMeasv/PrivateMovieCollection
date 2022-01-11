@@ -3,26 +3,21 @@ package pmcollection.gui.controller.dialogs;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import pmcollection.be.Category;
-import pmcollection.gui.view.dialogs.CategoryDialog;
 import pmcollection.gui.view.dialogs.CategoryEditDialog;
 
 import java.io.File;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
-public class MovieDialogController {
+public class MovieDialogController{
 
     @FXML
     public TextField txtFieldName;
@@ -67,8 +62,8 @@ public class MovieDialogController {
     }
 
     public void setCategories(List<Category> categories) {
-
         this.comboBoxCategories.setItems(FXCollections.observableList(categories));
+        comboBoxCategories.getSelectionModel().select(0);
     }
 
     public void setRating(float rating) {
@@ -92,7 +87,7 @@ public class MovieDialogController {
         Node source = (Node) event.getSource();
         File file = fileChooser.showOpenDialog(source.getScene().getWindow());
         if (file != null) {
-            String filePath = file.toURI().toString();
+            String filePath = file.getPath();
             txtFieldLink.setText(filePath);
         }
     }

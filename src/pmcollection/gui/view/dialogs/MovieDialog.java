@@ -18,7 +18,7 @@ public class MovieDialog extends Dialog<Movie> {
     public MovieDialog(List<Category> allCategories){
         super();
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../MovieDialogView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MovieDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
             controller.setAllCategories(allCategories);

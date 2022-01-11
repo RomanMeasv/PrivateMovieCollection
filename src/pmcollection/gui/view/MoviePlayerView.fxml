@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.MediaView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.MoviePlayerController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playButtonHandle" text="&gt;" />
+            <Label text="     Time: " />
+            <Slider fx:id="timeSlider" maxWidth="1.7976931348623157E308" minWidth="50.0" HBox.hgrow="ALWAYS" />
+            <Label fx:id="playTimeLabel" minWidth="50.0" prefWidth="130.0" text="01:20/04:20" />
+            <Label text="Vol: " />
+            <Slider fx:id="volumeSlider" maxWidth="-Infinity" minWidth="30.0" prefWidth="70.0" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <Pane BorderPane.alignment="CENTER">
+         <children>
+            <MediaView fx:id="mediaView" fitHeight="480.0" fitWidth="720.0">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </MediaView>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

@@ -42,10 +42,10 @@ public class MovieLogic {
         return mov;
     }
 
-    public void update(Movie selected) throws Exception {
-        this.movieDAO.updateMovie(selected);
+    public void update(Movie selected, Movie response) throws Exception {
+        this.movieDAO.updateMovie(response);
         this.catMovieDAO.unlinkMovieFromItsCategories(selected);
-        this.catMovieDAO.linkMovieToItsCategories(selected);
+        this.catMovieDAO.linkMovieToItsCategories(response);
     }
 
     public void delete(Movie selected) throws Exception {

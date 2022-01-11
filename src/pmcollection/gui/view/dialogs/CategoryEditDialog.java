@@ -17,7 +17,7 @@ public class CategoryEditDialog extends Dialog<List<Category>> {
     public CategoryEditDialog(List<Category> allCategories, List<Category> movieCategories){
         super();
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../CategoryEditView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CategoryEditView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
             controller.setAllCategories(allCategories);
