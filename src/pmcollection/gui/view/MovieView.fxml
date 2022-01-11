@@ -41,8 +41,6 @@
          <children>
             <HBox>
                <children>
-                  <TextField fx:id="filterField" />
-                  <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filterHandle" text="filter" />
 
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>

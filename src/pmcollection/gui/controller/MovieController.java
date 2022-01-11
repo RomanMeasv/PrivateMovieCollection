@@ -37,9 +37,11 @@ public class MovieController implements Initializable {
     @FXML
     public TableView<Movie> movieTBV;
     @FXML
-    public TextField filterField;
+    public TextField nameFilterField;
     @FXML
-    public Button filterBtn;
+    public TextField categoryFilterField;
+    @FXML
+    public TextField ratingFilterField;
     @FXML
     public TableColumn<Category, String> categoryNameColumn;
     @FXML
@@ -176,7 +178,7 @@ public class MovieController implements Initializable {
     }
     public void filterHandle (ActionEvent event){
         try {
-            this.movieModel.filterMovies(filterField.getText());
+            this.movieModel.filterMovies(nameFilterField.getText());
         } catch (Exception Ignored) {
 
         }
