@@ -64,8 +64,9 @@ public class Movie {
 
     public void setCategories(List<Category> categories) { this.categories = categories;}
 
+    //Rating should be 0-10
     public void setRating(float rating) {
-        this.rating = rating;
+        this.rating = rating < 0 ? 0 : rating > 10 ? 10 : rating;
     }
 
     public void setLastview(LocalDate lastview) {
