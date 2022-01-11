@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.MovieController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.MovieController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,7 +24,7 @@
          <columns>
             <TableColumn fx:id="categoryNameColumn" prefWidth="499.0" text="name" />
          </columns></TableView>
-      <TableView fx:id="movieTBV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <TableView fx:id="movieTBV" onMouseClicked="#movieTableClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <columns>
             <TableColumn fx:id="movieTBVName" prefWidth="180.79998779296875" text="Name" />
             <TableColumn fx:id="movieTBVRating" prefWidth="75.0" text="Rating" />
@@ -43,6 +43,15 @@
                <children>
                   <TextField fx:id="filterField" onKeyReleased="#filterHandle" />
                   <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filterHandle" text="filter" />
+
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="nameFilterField" promptText="name filter" VBox.vgrow="ALWAYS" />
+                        <TextField fx:id="categoryFilterField" promptText="category filter (separate with comma)" />
+                        <TextField fx:id="ratingFilterField" promptText="rating filter (from-to)" />
+                     </children>
+                  </VBox>
+                  <Button maxWidth="-Infinity" minHeight="-Infinity" minWidth="50.0" mnemonicParsing="false" onAction="#filterHandle" prefHeight="75.0" prefWidth="70.0" text="filter" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

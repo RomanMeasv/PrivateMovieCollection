@@ -92,7 +92,7 @@ public class MovieDialogController {
         Node source = (Node) event.getSource();
         File file = fileChooser.showOpenDialog(source.getScene().getWindow());
         if (file != null) {
-            String filePath = file.getPath();
+            String filePath = file.toURI().toString();
             txtFieldLink.setText(filePath);
         }
     }
