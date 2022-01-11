@@ -23,6 +23,7 @@ import pmcollection.be.Movie;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.CategoryDialog;
+import pmcollection.gui.view.dialogs.CategoryEditDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.net.URI;
@@ -179,6 +180,34 @@ public class MovieController implements Initializable {
             this.movieModel.filterMovies(nameFilterField.getText(), categoryFilterField.getText(), ratingFilterField.getText());
         } catch (Exception Ignored) {
 
+        }
+    }
+
+    public void editCategoryFilter(ActionEvent actionEvent) {
+        CategoryEditDialog dialog = new CategoryEditDialog(categoryTBV.getItems(), queryToList(this.categoryFilterField.getText()));
+        Optional<List<Category>> result = dialog.showAndWait();
+        result.ifPresent(response -> {
+            try {
+                listToQuery(response);
+            } catch (Exception ignored) {
+
+            }
+        });
+    }
+
+    private void listToQuery(List<Category> response) {
+        String query = "";
+        for (Category category :
+                response) {
+            query += category.getName() + ",";
+        }
+    }
+
+    private List<Category> queryToList(String query){
+        List<Category> categories = categoryModel.g;
+        for (String separated :
+                query.split(", ")) {
+            separated.toLowerCase().equals()
         }
     }
 }
