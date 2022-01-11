@@ -43,4 +43,9 @@ public class MovieModel {
         this.movieLogic.delete(selected);
         this.movies.remove(selected);
     }
+
+    public void filterMovies(String filterString)throws Exception{
+        movies.clear();
+        movies.addAll(movieLogic.filteredMovies(filterString));
+    }
 }

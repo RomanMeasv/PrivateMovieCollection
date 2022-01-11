@@ -1,5 +1,7 @@
 package pmcollection.gui.controller;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,10 +16,7 @@ import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.net.URL;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class MovieController implements Initializable {
@@ -28,6 +27,8 @@ public class MovieController implements Initializable {
     @FXML
     public TextField filterField;
     @FXML
+    public Button filterBtn;
+    @FXML
     public TableColumn<Category, String> categoryNameColumn;
     @FXML
     public TableColumn<Movie, String> movieTBVName;
@@ -35,6 +36,7 @@ public class MovieController implements Initializable {
     public TableColumn<Movie, String> movieTBVRating;
     @FXML
     public TableColumn<Movie, String> movieTBVCategories;
+
 
     private CategoryModel categoryModel;
     private MovieModel movieModel;
@@ -104,8 +106,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void filterHandle(ActionEvent event) {   
-    }
+
 
     public void movieAdd(ActionEvent event) {
         MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
@@ -147,4 +148,11 @@ public class MovieController implements Initializable {
     }
 
 
+    public void filterHandle(ActionEvent event) {
+        try {
+            this.movieModel.filterMovies(filterField.getText() );
+        } catch (Exception Ignored) {
+
+        }
+    }
 }

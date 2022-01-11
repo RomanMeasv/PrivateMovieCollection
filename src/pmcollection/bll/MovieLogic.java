@@ -34,6 +34,7 @@ public class MovieLogic {
         movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
         return movie;
     }
+
     public Movie addMovie(Movie movie) throws Exception {
         Movie mov = this.movieDAO.createMovie(movie);
         catMovieDAO.linkMovieToItsCategories(movie);
@@ -48,7 +49,22 @@ public class MovieLogic {
 
     public void delete(Movie selected) throws Exception {
         catMovieDAO.unlinkMovieFromItsCategories(selected);
-        this.movieDAO.deleteMovie   (selected);
+        this.movieDAO.deleteMovie(selected);
     }
+
+    public List<Movie> filteredMovies(String filterString) throws Exception {
+        List<Movie> allMovies = getAllMovies();
+        List<Movie> filteredMovies = new ArrayList<>();
+        for (Movie movie : allMovies) {
+            if (movie.getName().toLowerCase().contains(filterString.toLowerCase())) {
+                filteredMovies.add(movie);
+            }
+            else if (movie.getCategories().toString().toLowerCase().contains(filterString.toLowerCase())){
+                filteredMovies.add(movie);
+            }
+        }
+        return filterString.isEmpty() ? allMovies : filteredMovies;
+    }
+
 
 }

@@ -42,7 +42,7 @@
             <HBox>
                <children>
                   <TextField fx:id="filterField" />
-                  <Button mnemonicParsing="false" onAction="#filterHandle" text="filter" />
+                  <Button fx:id="filterBtn" mnemonicParsing="false" onAction="#filterHandle" text="filter" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
