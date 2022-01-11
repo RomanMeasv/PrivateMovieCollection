@@ -184,30 +184,37 @@ public class MovieController implements Initializable {
     }
 
     public void editCategoryFilter(ActionEvent actionEvent) {
-        CategoryEditDialog dialog = new CategoryEditDialog(categoryTBV.getItems(), queryToList(this.categoryFilterField.getText()));
+        CategoryEditDialog dialog = new CategoryEditDialog(new ArrayList<>(categoryTBV.getItems()), queryToList(this.categoryFilterField.getText()));
         Optional<List<Category>> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
-                listToQuery(response);
+                categoryFilterField.setText(listToQuery(response));
             } catch (Exception ignored) {
 
             }
         });
     }
 
-    private void listToQuery(List<Category> response) {
+    private String listToQuery(List<Category> response) {
         String query = "";
         for (Category category :
                 response) {
-            query += category.getName() + ",";
+            query += category.getName() + ", ";
         }
+        return query;
     }
 
     private List<Category> queryToList(String query){
-        List<Category> categories = categoryModel.g;
+        List<Category> categories = new ArrayList<>();
         for (String separated :
                 query.split(", ")) {
-            separated.toLowerCase().equals()
+            for (Category category :
+                    categoryTBV.getItems()) {
+                if(separated.equalsIgnoreCase(category.getName())){
+                    categories.add(category);
+                }
+            }
         }
+        return categories;
     }
 }

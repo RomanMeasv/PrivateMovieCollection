@@ -21,7 +21,9 @@ public class CategoryEditController {
     public void removeFromMovie(ActionEvent actionEvent) {
         Category selected = this.movieCategories.getSelectionModel().getSelectedItem();
         if(selected != null){
-            this.allCategories.getItems().add(selected);
+            if(!this.allCategories.getItems().contains(selected)){
+                this.allCategories.getItems().add(selected);
+            }
             this.movieCategories.getItems().remove(selected);
         }
     }

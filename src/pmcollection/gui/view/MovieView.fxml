@@ -45,7 +45,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <TextField fx:id="nameFilterField" promptText="name filter" VBox.vgrow="ALWAYS" />
-                        <TextField fx:id="categoryFilterField" promptText="category filter (separate with comma)" />
+                        <TextField fx:id="categoryFilterField" editable="false" promptText="category filter (separate with comma)" />
                         <HBox>
                            <children>
                               <TextField fx:id="ratingMinField" promptText="rating from (min)" />
