@@ -174,7 +174,7 @@ public class MovieController implements Initializable {
             }
         }
     }
-    public void filterHandle (ActionEvent event){
+    public void filterHandle (ActionEvent event) {
         try {
             this.movieModel.filterMovies(nameFilterField.getText(), categoryFilterField.getText(), ratingFilterField.getText());
         } catch (Exception Ignored) {

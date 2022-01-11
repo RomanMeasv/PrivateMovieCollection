@@ -17,11 +17,7 @@ public class Test {
         MovieLogic movieLogic = new MovieLogic();
         for  (Movie m : movieLogic.getAllMovies())
         {
-            System.out.println(m.getName());
-            for (Category c : m.getCategories())
-            {
-                System.out.println(c.getName());
-            }
+            System.out.println(m.getCategories().toString());
         }
     }
 }

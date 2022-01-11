@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieLogic {
     private IMovieDA movieDAO;
@@ -53,18 +54,40 @@ public class MovieLogic {
     }
 
     public List<Movie> filteredMovies(String nameFilterString, String categoryFilterString, String ratingFilterString) throws Exception {
-        List<Movie> allMovies = getAllMovies();
-        List<Movie> filteredMovies = new ArrayList<>();
-        for (Movie movie : allMovies) {
-            if (movie.getName().toLowerCase().contains(nameFilterString.toLowerCase())) {
-                filteredMovies.add(movie);
-            }
-            else if (movie.getCategories().toString().toLowerCase().contains(nameFilterString.toLowerCase())){
-                filteredMovies.add(movie);
-            }
+        List<Movie> filteredMovies = getAllMovies();
+        if (!nameFilterString.isEmpty())
+        {
+            filteredMovies = filterMoviesByName(filteredMovies, nameFilterString);
         }
-        return nameFilterString.isEmpty() ? allMovies : filteredMovies;
+        if (!categoryFilterString.isEmpty())
+        {
+            filteredMovies = filterMoviesByCategory(filteredMovies, categoryFilterString);
+        }
+        if (!ratingFilterString.isEmpty())
+        {
+            filteredMovies = filterMoviesByRating(filteredMovies, ratingFilterString);
+        }
+        return filteredMovies;
     }
 
+    public List<Movie> filterMoviesByName(List<Movie> movies, String query)
+    {
+        return movies.stream().filter(movie -> movie.getName().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))).toList();
+    }
 
+    public List<Movie> filterMoviesByCategory(List<Movie> movies, String query)
+    {
+        return movies.stream().filter(movie -> movie.getCategories().toString().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))).toList();
+    }
+
+    public List<Movie> filterMoviesByRating(List<Movie> movies, String query)
+    {
+        if (query.split("-").length == 2)
+        {
+            int from = Integer.parseInt(query.split("-")[0]);
+            int to = Integer.parseInt(query.split("-")[1]);
+            return movies.stream().filter(movie -> movie.getRating() >= from && movie.getRating() <= to).toList();
+        }
+        return movies;
+    }
 }
