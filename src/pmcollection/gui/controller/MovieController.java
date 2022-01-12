@@ -46,6 +46,8 @@ public class MovieController implements Initializable {
     @FXML
     public TableColumn<Movie, String> movieTBVName;
     @FXML
+    public TableColumn<Movie, String> movieTBVLastView;
+    @FXML
     public TableColumn<Movie, String> movieTBVRating;
     @FXML
     public TableColumn<Movie, String> movieTBVCategories;
@@ -75,6 +77,8 @@ public class MovieController implements Initializable {
         this.movieTBVName.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.movieTBVRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         this.movieTBVCategories.setCellValueFactory(new PropertyValueFactory<>("categories"));
+        this.movieTBVLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
+
     }
 
     public void categoryAdd(ActionEvent event) {
