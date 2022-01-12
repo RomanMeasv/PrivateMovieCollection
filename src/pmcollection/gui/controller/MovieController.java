@@ -166,28 +166,32 @@ public class MovieController implements Initializable {
         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
             Movie selected = this.movieTBV.getSelectionModel().getSelectedItem();
             if (selected != null) {
-                //load fxml file, create new scene and new stage
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
-                Parent root = loader.load();
-                MoviePlayerController controller = loader.getController();
-                Scene scene = new Scene(root);
-                Stage videoStage = new Stage();
-                videoStage.setTitle("Video Player");
-
                 //create media player
-                File file = new File(selected.getFilelink());
-                Media media = new Media(file.toURI().toURL().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(false);
+                try{
+                    File file = new File(selected.getFilelink());
+                    Media media = new Media(file.toURI().toURL().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setAutoPlay(false);
 
-                //init controller & show stage
-                controller.init(mediaPlayer);
-                videoStage.setScene(scene);
-                videoStage.show();
+                    //load fxml file, create new scene and new stage
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
+                    Parent root = loader.load();
+                    MoviePlayerController controller = loader.getController();
+                    Scene scene = new Scene(root);
+                    Stage videoStage = new Stage();
+                    videoStage.setTitle("Video Player");
+
+                    //init controller & show stage
+                    controller.init(mediaPlayer);
+                    videoStage.setScene(scene);
+                    videoStage.show();
+                } catch (Exception e){
+                    popAlertDialog(e);
+                }
             }
         }
     }
-    public void filterHandle (ActionEvent event) {
+    public void filterHandle(ActionEvent event) {
         try {
             this.movieModel.filterMovies(nameFilterField.getText(),
                     queryToList(categoryFilterField.getText()),
@@ -213,7 +217,7 @@ public class MovieController implements Initializable {
     private void popAlertDialog(Exception exception){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Alert Dialog");
-        alert.setHeaderText("header text");
+        //alert.setHeaderText("header text");
         alert.setContentText(exception.getMessage());
 
         Optional<ButtonType> result = alert.showAndWait();
