@@ -60,15 +60,14 @@ public class MovieController implements Initializable {
         try {
             categoryModel = new CategoryModel();
             movieModel = new MovieModel();
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            popAlertDialog(e);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
-        popAlertDialog(new Exception("Piko"));
     }
 
     private void initTables() {
@@ -88,8 +87,8 @@ public class MovieController implements Initializable {
         result.ifPresent(response -> {
             try {
                 this.categoryModel.addCategory(response);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         });
     }
@@ -104,8 +103,8 @@ public class MovieController implements Initializable {
                 try {
                     response.setId(selected.getId());
                     this.categoryModel.editCategory(selected, response);
-                } catch (Exception ignored) {
-
+                } catch (Exception e) {
+                    popAlertDialog(e);
                 }
             });
         }
@@ -116,8 +115,8 @@ public class MovieController implements Initializable {
         if (selected != null) {
             try {
                 this.categoryModel.deleteCategory(selected);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         }
     }
@@ -129,8 +128,8 @@ public class MovieController implements Initializable {
         result.ifPresent(response -> {
             try {
                 this.movieModel.addMovie(response);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         });
     }
@@ -145,8 +144,8 @@ public class MovieController implements Initializable {
                 try {
                     response.setId(selected.getId());
                     this.movieModel.editMovie(selected, response);
-                } catch (Exception ignored) {
-
+                } catch (Exception e) {
+                    popAlertDialog(e);
                 }
             });
         }
@@ -157,7 +156,8 @@ public class MovieController implements Initializable {
         if (selected != null) {
             try {
                 this.movieModel.deleteMovie(selected);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         }
     }
@@ -193,8 +193,8 @@ public class MovieController implements Initializable {
                     queryToList(categoryFilterField.getText()),
                     queryToFloat(ratingMinField.getText()),
                     queryToFloat(ratingMaxField.getText()));
-        } catch (Exception Ignored) {
-
+        } catch (Exception e) {
+            popAlertDialog(e);
         }
     }
 
@@ -204,8 +204,8 @@ public class MovieController implements Initializable {
         result.ifPresent(response -> {
             try {
                 categoryFilterField.setText(listToQuery(response));
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         });
     }

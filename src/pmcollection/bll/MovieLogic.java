@@ -2,6 +2,9 @@ package pmcollection.bll;
 
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
+import pmcollection.bll.exceptions.CatMovieException;
+import pmcollection.bll.exceptions.MovieException;
+import pmcollection.bll.exceptions.MovieFilterException;
 import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.interfaces.ICatMovieDA;
 import pmcollection.dal.interfaces.IMovieDA;
@@ -17,45 +20,70 @@ public class MovieLogic {
     private IMovieDA movieDAO;
     private ICatMovieDA catMovieDAO;
 
-    public MovieLogic() throws Exception {
+    public MovieLogic() {
         movieDAO = new MovieDAO();
         catMovieDAO = new CatMovieDAO();
     }
 
-    public List<Movie> getAllMovies() throws Exception {
-        List<Movie> allMovies = movieDAO.getAllMovies();
+    public List<Movie> getAllMovies() throws MovieException, CatMovieException {
+        List<Movie> allMovies;
+        try
+        { allMovies = new ArrayList<>(movieDAO.getAllMovies()); }
+            catch (Exception e) { throw new MovieException("Could not access movies from database!", e); }
         for (Movie movie : allMovies) {
-            movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
+            try {
+            movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie)); }
+                catch (Exception e) { throw new CatMovieException("Failed to retrieve categories of the movie \"" + movie.getName() + "\"", e); }
         }
         return allMovies;
     }
 
-    public Movie getMovie(int id) throws Exception {
+    /*
+    public Movie getMovie(int id) {
         Movie movie = movieDAO.getMovie(id);
         movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
         return movie;
     }
+    */
 
-    public Movie addMovie(Movie movie) throws Exception {
-        Movie mov = this.movieDAO.createMovie(movie);
-        catMovieDAO.linkMovieToItsCategories(movie);
-        return mov;
+    public Movie addMovie(Movie movie) throws MovieException, CatMovieException {
+        Movie newMovie;
+        try
+        { newMovie = this.movieDAO.createMovie(movie); }
+            catch (Exception e) { throw new MovieException("Failed to create movie \"" + movie.getName() + "\" in in database!", e); }
+        try
+        { catMovieDAO.linkMovieToItsCategories(movie); }
+            catch (Exception e) { throw new CatMovieException("Movie \"" + movie.getName() + "\" was created but couldn't be linked to it's category(ies) in the database!", e); }
+        return newMovie;
     }
 
-    public void update(Movie selected, Movie response) throws Exception {
-        this.movieDAO.updateMovie(response);
-        this.catMovieDAO.unlinkMovieFromItsCategories(selected);
-        this.catMovieDAO.linkMovieToItsCategories(response);
+    public void update(Movie selected, Movie response) throws MovieException, CatMovieException {
+        try
+        { this.movieDAO.updateMovie(response); }
+            catch (Exception e) { throw new MovieException("Could not update movie \"" + selected.getName() + "\" in database!", e); }
+        try
+        { this.catMovieDAO.unlinkMovieFromItsCategories(selected);
+          this.catMovieDAO.linkMovieToItsCategories(response); }
+            catch (Exception e) { throw new CatMovieException("Could not edit category links of movie \"" + response.getName() + "\" in database!", e); }
+
     }
 
-    public void delete(Movie selected) throws Exception {
-        catMovieDAO.unlinkMovieFromItsCategories(selected);
-        this.movieDAO.deleteMovie(selected);
+    public void delete(Movie movie) throws CatMovieException, MovieException {
+        try
+        { catMovieDAO.unlinkMovieFromItsCategories(movie); }
+            catch (Exception e) {throw new CatMovieException("Could not unlink movie \"" + movie.getName() + "\" from it's categories in database!", e); }
+        try
+        { this.movieDAO.deleteMovie(movie); }
+            catch (Exception e) {throw new MovieException("Movie \"" + movie.getName() + "\" was unlinked from it's categories but could not be deleted from the database!", e); }
     }
 
-    public List<Movie> filterMovies(String name, List<Category> categories, float min, float max) throws Exception {
-        List<Movie> filteredMovies = getAllMovies();
-        if (!name.isEmpty())
+    public List<Movie> filterMovies(String name, List<Category> categories, float min, float max) throws MovieFilterException {
+        List<Movie> filteredMovies;
+        try
+        { filteredMovies = getAllMovies(); }
+            catch (Exception e) {throw new MovieFilterException("Failed to retrieve movies to be filtered!", e); }
+        try
+        { if (!name.isEmpty())
         {
             filteredMovies = filterMoviesByName(filteredMovies, name);
         }
@@ -66,23 +94,24 @@ public class MovieLogic {
         if (min != 0 || max != 0)
         {
             filteredMovies = filterMoviesByRating(filteredMovies, min, max);
-        }
+        } }
+            catch (Exception e) {throw new MovieFilterException("Failed to apply filters to the movies!", e); }
         return filteredMovies;
     }
 
-    public List<Movie> filterMoviesByName(List<Movie> movies, String query)
+    private List<Movie> filterMoviesByName(List<Movie> movies, String query)
     {
         return movies.stream().filter(movie -> movie.getName().toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))).toList();
     }
 
-    public List<Movie> filterMoviesByCategory(List<Movie> movies, List<Category> categories)
+    private List<Movie> filterMoviesByCategory(List<Movie> movies, List<Category> categories)
     {
         return movies.stream()
                 .filter(movie -> movie.getCategories().containsAll(categories))
                 .toList();
     }
 
-    public List<Movie> filterMoviesByRating(List<Movie> movies, float min, float max)
+    private List<Movie> filterMoviesByRating(List<Movie> movies, float min, float max)
     {
         return movies.stream()
                 .filter(movie -> (min > 0 ? min : 0) <= movie.getRating())
