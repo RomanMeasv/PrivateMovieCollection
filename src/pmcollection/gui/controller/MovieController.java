@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -162,10 +163,13 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void movieTableClick(MouseEvent event) throws IOException {
+    public void movieTableClick(MouseEvent event) throws Exception {
         if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
             Movie selected = this.movieTBV.getSelectionModel().getSelectedItem();
             if (selected != null) {
+                Movie response = selected;
+                response.setLastview(LocalDate.now());
+                movieModel.editMovie(selected,response);
                 //load fxml file, create new scene and new stage
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
                 Parent root = loader.load();
@@ -175,6 +179,7 @@ public class MovieController implements Initializable {
                 videoStage.setTitle("Video Player");
 
                 //create media player
+
                 File file = new File(selected.getFilelink());
                 Media media = new Media(file.toURI().toURL().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
