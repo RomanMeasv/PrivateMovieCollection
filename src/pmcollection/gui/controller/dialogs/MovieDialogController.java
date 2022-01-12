@@ -82,8 +82,7 @@ public class MovieDialogController{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select file resource");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("MP4 File", "*.mp4"),
-                new FileChooser.ExtensionFilter("MPEG 4 file", "*.mpeg4")
+                new FileChooser.ExtensionFilter("MP4/MPEG4 Files", "*.mp4", "*.mpeg4")
         );
         Node source = (Node) event.getSource();
         File file = fileChooser.showOpenDialog(source.getScene().getWindow());
