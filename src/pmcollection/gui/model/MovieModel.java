@@ -48,4 +48,10 @@ public class MovieModel {
         movies.clear();
         movies.addAll(movieLogic.filterMovies(name, categories, min, max));
     }
+
+    public List<Movie> getBadOldMovies() throws Exception
+    {
+        return movieLogic.getBadOldMovies();
+    }
+
 }

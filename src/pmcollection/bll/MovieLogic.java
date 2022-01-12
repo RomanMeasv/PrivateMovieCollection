@@ -5,13 +5,13 @@ import pmcollection.be.Movie;
 import pmcollection.bll.exceptions.CatMovieException;
 import pmcollection.bll.exceptions.MovieException;
 import pmcollection.bll.exceptions.MovieFilterException;
+import pmcollection.bll.exceptions.BadOldMovieException;
 import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.interfaces.ICatMovieDA;
 import pmcollection.dal.interfaces.IMovieDA;
 import pmcollection.dal.dao.MovieDAO;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -116,6 +116,16 @@ public class MovieLogic {
         return movies.stream()
                 .filter(movie -> (min > 0 ? min : 0) <= movie.getRating())
                 .filter(movie -> (max > 0 ? max : 10) >= movie.getRating())
+                .toList();
+    }
+
+    public List<Movie> getBadOldMovies() throws BadOldMovieException {
+        List<Movie> oldMovies;
+        try
+        { oldMovies = getAllMovies(); }
+        catch (Exception e) {throw new BadOldMovieException("Could not get movies to check if bad and old ones are present!", e); }
+        return oldMovies.stream()
+                .filter(movie -> movie.getLastview().isBefore(LocalDate.now().minusYears(2)) && movie.getRating() < 6)
                 .toList();
     }
 }

@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
+import pmcollection.bll.MovieLogic;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.CategoryDialog;
@@ -69,6 +70,7 @@ public class MovieController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
+        checkBadOldMovies();
     }
 
     private void initTables() {
@@ -80,6 +82,10 @@ public class MovieController implements Initializable {
         this.movieTBVCategories.setCellValueFactory(cellData -> cellData.getValue().getCategoriesString());
         this.movieTBVLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
+    }
+
+    private void checkBadOldMovies() {
+        
     }
 
     public void categoryAdd(ActionEvent event) {
@@ -184,15 +190,32 @@ public class MovieController implements Initializable {
                 Media media = new Media(file.toURI().toURL().toString());
                 MediaPlayer mediaPlayer = new MediaPlayer(media);
                 mediaPlayer.setAutoPlay(false);
+                //create media player
+                try{
+                    File file = new File(selected.getFilelink());
+                    Media media = new Media(file.toURI().toURL().toString());
+                    MediaPlayer mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setAutoPlay(false);
 
-                //init controller & show stage
-                controller.init(mediaPlayer);
-                videoStage.setScene(scene);
-                videoStage.show();
+                    //load fxml file, create new scene and new stage
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
+                    Parent root = loader.load();
+                    MoviePlayerController controller = loader.getController();
+                    Scene scene = new Scene(root);
+                    Stage videoStage = new Stage();
+                    videoStage.setTitle("Video Player");
+
+                    //init controller & show stage
+                    controller.init(mediaPlayer);
+                    videoStage.setScene(scene);
+                    videoStage.show();
+                } catch (Exception e){
+                    popAlertDialog(e);
+                }
             }
         }
     }
-    public void filterHandle (ActionEvent event) {
+    public void filterHandle(ActionEvent event) {
         try {
             this.movieModel.filterMovies(nameFilterField.getText(),
                     queryToList(categoryFilterField.getText()),
@@ -218,7 +241,6 @@ public class MovieController implements Initializable {
     private void popAlertDialog(Exception exception){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Alert Dialog");
-        alert.setHeaderText("header text");
         alert.setContentText(exception.getMessage());
 
         Optional<ButtonType> result = alert.showAndWait();
