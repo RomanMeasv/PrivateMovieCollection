@@ -68,6 +68,7 @@ public class MovieController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
+        checkBadOldMovies();
     }
 
     private void initTables() {
@@ -79,6 +80,10 @@ public class MovieController implements Initializable {
         this.movieTBVCategories.setCellValueFactory(cellData -> cellData.getValue().getCategoriesString());
         this.movieTBVLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
+    }
+
+    private void checkBadOldMovies() {
+        
     }
 
     public void categoryAdd(ActionEvent event) {
@@ -217,7 +222,6 @@ public class MovieController implements Initializable {
     private void popAlertDialog(Exception exception){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Alert Dialog");
-        //alert.setHeaderText("header text");
         alert.setContentText(exception.getMessage());
 
         Optional<ButtonType> result = alert.showAndWait();
