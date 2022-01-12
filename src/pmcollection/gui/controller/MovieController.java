@@ -68,6 +68,7 @@ public class MovieController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
+        popAlertDialog(new Exception("Piko"));
     }
 
     private void initTables() {
@@ -207,6 +208,20 @@ public class MovieController implements Initializable {
 
             }
         });
+    }
+    
+    private void popAlertDialog(Exception exception){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alert Dialog");
+        alert.setHeaderText("header text");
+        alert.setContentText(exception.getMessage());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            //user chose ok
+        } else {
+            //user chose cancel or closed the dialog
+        }
     }
 
     private String listToQuery(List<Category> response) {

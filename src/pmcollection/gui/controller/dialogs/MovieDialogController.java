@@ -3,8 +3,10 @@ package pmcollection.gui.controller.dialogs;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -12,12 +14,14 @@ import pmcollection.be.Category;
 import pmcollection.gui.view.dialogs.CategoryEditDialog;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class MovieDialogController{
+public class MovieDialogController implements Initializable{
 
     @FXML
     public TextField txtFieldName;
@@ -34,6 +38,17 @@ public class MovieDialogController{
 
     public MovieDialogController(){
         allCategories = new ArrayList<>();
+    }
+
+
+    public void initialize(URL location, ResourceBundle resources) {
+        LocalDate maxDate = LocalDate.now();
+        dpLastView.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
     }
 
     public String getName() {
