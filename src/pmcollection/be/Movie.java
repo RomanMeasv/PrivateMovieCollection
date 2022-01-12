@@ -1,5 +1,8 @@
 package pmcollection.be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,17 @@ public class Movie {
 
     public String getName() {
         return this.name;
+    }
+
+    public SimpleStringProperty getCategoriesString(){
+        SimpleStringProperty ssp = new SimpleStringProperty();
+        String ret = "";
+        for (Category c : this.categories){
+            ret += c.getName()+", ";
+        }
+        ret = ret.trim();
+        ssp.setValue(ret);
+        return ssp;
     }
 
     public List<Category> getCategories()

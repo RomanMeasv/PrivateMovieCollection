@@ -77,7 +77,7 @@ public class MovieController implements Initializable {
         this.movieTBV.setItems(movieModel.getMovieList());
         this.movieTBVName.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.movieTBVRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        this.movieTBVCategories.setCellValueFactory(new PropertyValueFactory<>("categories"));
+        this.movieTBVCategories.setCellValueFactory(cellData -> cellData.getValue().getCategoriesString());
         this.movieTBVLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
     }
