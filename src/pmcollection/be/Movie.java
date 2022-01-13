@@ -105,6 +105,6 @@ public class Movie {
 
     @Override
     public String toString(){
-        return this.name;
+        return "Name: " + this.name + "\nRating: " + this.rating + "\nLastview: " + this.lastview;
     }
 }
