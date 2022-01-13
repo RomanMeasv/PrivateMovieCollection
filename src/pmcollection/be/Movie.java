@@ -15,20 +15,20 @@ public class Movie {
     private List<Category> categories;
 
     public Movie(int id, String name, float rating, String filelink, LocalDate lastview) {
-        this.id = id;
-        this.name = name;
+        setId(id);
+        setName(name);
         this.categories = new ArrayList<>();
-        this.rating = rating;
-        this.lastview = lastview;
-        this.filelink = filelink;
+        setRating(rating);
+        setLastview(lastview);
+        setFilelink(filelink);
     }
 
     public Movie(String name, List<Category> categories, float rating, LocalDate lastview, String filelink) {
-        this.name = name;
-        this.categories = categories;
-        this.rating = rating;
-        this.lastview = lastview;
-        this.filelink = filelink;
+        setName(name);
+        setCategories(categories);
+        setRating(rating);
+        setLastview(lastview);
+        setFilelink(filelink);
     }
 
     public int getId() {
