@@ -1,5 +1,6 @@
 package pmcollection.gui.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -176,21 +177,7 @@ public class MovieController implements Initializable {
                 Movie response = selected;
                 response.setLastview(LocalDate.now());
                 movieModel.editMovie(selected,response);
-                //load fxml file, create new scene and new stage
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/MoviePlayerView.fxml"));
-                Parent root = loader.load();
-                MoviePlayerController controller = loader.getController();
-                Scene scene = new Scene(root);
-                Stage videoStage = new Stage();
-                videoStage.setTitle("Video Player");
 
-                //create media player
-
-                File file = new File(selected.getFilelink());
-                Media media = new Media(file.toURI().toURL().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setAutoPlay(false);
-                //create media player
                 try{
                     File file = new File(selected.getFilelink());
                     Media media = new Media(file.toURI().toURL().toString());
@@ -282,5 +269,18 @@ public class MovieController implements Initializable {
         {
             return 0;
         }
+    }
+
+    public void clearFilterHandle(ActionEvent event) {
+        try {
+            movieTBV.setItems(movieModel.restoreMovieTBV());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            nameFilterField.clear();
+            categoryFilterField.clear();
+            ratingMaxField.clear();
+            ratingMinField.clear();
+
     }
 }
