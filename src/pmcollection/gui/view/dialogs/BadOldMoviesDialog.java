@@ -4,29 +4,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import pmcollection.be.Category;
-import pmcollection.gui.controller.dialogs.CategoryEditDialogController;
+import pmcollection.be.Movie;
+import pmcollection.gui.controller.dialogs.BadOldMoviesDialogController;
 
 import java.io.IOException;
 import java.util.List;
 
-public class CategoryEditDialog extends Dialog<List<Category>> {
+public class BadOldMoviesDialog extends Dialog<List<Movie>> {
 
-    private CategoryEditDialogController controller;
+    private BadOldMoviesDialogController controller;
 
-    public CategoryEditDialog(List<Category> allCategories, List<Category> movieCategories){
+    public BadOldMoviesDialog(List<Movie> badOldMoviesList){
         super();
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CategoryEditView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("BadOldMoviesDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-            controller.setAllCategories(allCategories);
-            controller.setMovieCategories(movieCategories);
-            this.setTitle("Movie categories");
+            controller.initDialog(badOldMoviesList);
+            this.setTitle("Delete Bad Old Movies");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {
                 if(buttonType == ButtonType.APPLY){
-                    return controller.getMovieCategories();
+                    return controller.getMoviesToDelete();
                 }
                 return null;
             });

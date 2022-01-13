@@ -49,9 +49,9 @@ public class MovieModel {
         movies.addAll(movieLogic.filterMovies(name, categories, min, max));
     }
 
-    public List<Movie> getBadOldMovies() throws Exception
+    public List<Movie> getBadOldMovies()
     {
-        return movieLogic.getBadOldMovies();
+        return movieLogic.getBadOldMovies(new ArrayList<Movie>(this.movies));
     }
 
 }

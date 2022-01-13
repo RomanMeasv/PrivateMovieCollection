@@ -1,7 +1,6 @@
 package pmcollection.be;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,5 +101,10 @@ public class Movie {
     public void removeCategory(Category category)
     {
         categories.remove(category);
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
     }
 }

@@ -1,5 +1,6 @@
 package pmcollection.bll;
 
+import javafx.collections.ObservableList;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.bll.exceptions.CatMovieException;
@@ -119,12 +120,8 @@ public class MovieLogic {
                 .toList();
     }
 
-    public List<Movie> getBadOldMovies() throws BadOldMovieException {
-        List<Movie> oldMovies;
-        try
-        { oldMovies = getAllMovies(); }
-        catch (Exception e) {throw new BadOldMovieException("Could not get movies to check if bad and old ones are present!", e); }
-        return oldMovies.stream()
+    public List<Movie> getBadOldMovies(List<Movie> movieList) {
+        return movieList.stream()
                 .filter(movie -> movie.getLastview().isBefore(LocalDate.now().minusYears(2)) && movie.getRating() < 6)
                 .toList();
     }

@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<DialogPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.dialogs.CategoryEditDialogController">
+<DialogPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.dialogs.BadOldMoviesDialogController">
    <content>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -24,16 +23,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="allCategories" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView fx:id="movieCategories" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ListView fx:id="moviesKeepLV" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ListView fx:id="moviesDeleteLV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button mnemonicParsing="false" onAction="#removeFromMovie" text="&lt;-" />
-                  <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addToMovie" text="-&gt;" />
+                  <Button mnemonicParsing="false" onAction="#movieToKeep" text="&lt;-" />
+                  <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#movieToDelete" text="-&gt;" />
                </children>
             </VBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All categories" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Movie categories" GridPane.columnIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bad Old Movies to keep" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bad Old Movies to delete" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </content>

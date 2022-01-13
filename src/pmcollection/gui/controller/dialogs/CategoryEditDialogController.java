@@ -11,7 +11,7 @@ import pmcollection.be.Movie;
 
 import java.util.List;
 
-public class CategoryEditController {
+public class CategoryEditDialogController {
 
     @FXML
     public ListView<Category> allCategories;
