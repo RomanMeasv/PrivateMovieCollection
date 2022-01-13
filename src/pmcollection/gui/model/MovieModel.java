@@ -6,8 +6,6 @@ import javafx.scene.control.TableColumn;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.bll.MovieLogic;
-import pmcollection.bll.exceptions.CatMovieException;
-import pmcollection.bll.exceptions.MovieException;
 
 import java.util.ArrayList;
 import java.io.IOException;
@@ -56,7 +54,4 @@ public class MovieModel {
         return movieLogic.getBadOldMovies(new ArrayList<Movie>(this.movies));
     }
 
-    public ObservableList<Movie> restoreMovieTBV() throws Exception {
-       return FXCollections.observableList(movieLogic.getAllMovies());
-    }
 }

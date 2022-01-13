@@ -1,6 +1,5 @@
 package pmcollection.gui.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,12 +19,14 @@ import pmcollection.be.Movie;
 import pmcollection.bll.MovieLogic;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
+import pmcollection.gui.view.dialogs.BadOldMoviesDialog;
 import pmcollection.gui.view.dialogs.CategoryDialog;
 import pmcollection.gui.view.dialogs.CategoryEditDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Executable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -82,11 +83,24 @@ public class MovieController implements Initializable {
         this.movieTBVRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         this.movieTBVCategories.setCellValueFactory(cellData -> cellData.getValue().getCategoriesString());
         this.movieTBVLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
-
     }
 
     private void checkBadOldMovies() {
-        
+        List<Movie> badOldMovies = new ArrayList<>(this.movieModel.getBadOldMovies());
+        if (!badOldMovies.isEmpty()) {
+            BadOldMoviesDialog dialog = new BadOldMoviesDialog(badOldMovies);
+            Optional<List<Movie>> result = dialog.showAndWait();
+            result.ifPresent(response -> {
+                try {
+                    for (Movie movie :
+                            response) {
+                        this.movieModel.deleteMovie(movie);
+                    }
+                } catch (Exception e) {
+                    popAlertDialog(e);
+                }
+            });
+        }
     }
 
     public void categoryAdd(ActionEvent event) {
@@ -176,9 +190,9 @@ public class MovieController implements Initializable {
             if (selected != null) {
                 Movie response = selected;
                 response.setLastview(LocalDate.now());
-                movieModel.editMovie(selected,response);
+                movieModel.editMovie(selected, response);
 
-                try{
+                try {
                     File file = new File(selected.getFilelink());
                     Media media = new Media(file.toURI().toURL().toString());
                     MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -196,12 +210,13 @@ public class MovieController implements Initializable {
                     controller.init(mediaPlayer);
                     videoStage.setScene(scene);
                     videoStage.show();
-                } catch (Exception e){
+                } catch (Exception e) {
                     popAlertDialog(e);
                 }
             }
         }
     }
+
     public void filterHandle(ActionEvent event) {
         try {
             this.movieModel.filterMovies(nameFilterField.getText(),
@@ -224,14 +239,14 @@ public class MovieController implements Initializable {
             }
         });
     }
-    
-    private void popAlertDialog(Exception exception){
+
+    private void popAlertDialog(Exception exception) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Alert Dialog");
         alert.setContentText(exception.getMessage());
 
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             //user chose ok
         } else {
             //user chose cancel or closed the dialog
@@ -247,13 +262,13 @@ public class MovieController implements Initializable {
         return query;
     }
 
-    private List<Category> queryToList(String query){
+    private List<Category> queryToList(String query) {
         List<Category> categories = new ArrayList<>();
         for (String separated :
                 query.split(", ")) {
             for (Category category :
                     categoryTBV.getItems()) {
-                if(separated.equalsIgnoreCase(category.getName())){
+                if (separated.equalsIgnoreCase(category.getName())) {
                     categories.add(category);
                 }
             }
@@ -261,26 +276,11 @@ public class MovieController implements Initializable {
         return categories;
     }
 
-    private float queryToFloat(String query)
-    {
+    private float queryToFloat(String query) {
         try {
-            return  Float.parseFloat(query);
-        } catch (Exception exception)
-        {
+            return Float.parseFloat(query);
+        } catch (Exception exception) {
             return 0;
         }
-    }
-
-    public void clearFilterHandle(ActionEvent event) {
-        try {
-            movieTBV.setItems(movieModel.restoreMovieTBV());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-            nameFilterField.clear();
-            categoryFilterField.clear();
-            ratingMaxField.clear();
-            ratingMinField.clear();
-
     }
 }

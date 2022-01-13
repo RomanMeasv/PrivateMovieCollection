@@ -22,11 +22,11 @@
    <children>
       <TableView fx:id="categoryTBV" prefHeight="200.0" prefWidth="200.0">
          <columns>
-            <TableColumn fx:id="categoryNameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="290.0" text="Categories" />
+            <TableColumn fx:id="categoryNameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="290.0" text="name" />
          </columns></TableView>
       <TableView fx:id="movieTBV" onMouseClicked="#movieTableClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
          <columns>
-            <TableColumn fx:id="movieTBVName" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Title" />
+            <TableColumn fx:id="movieTBVName" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Name" />
             <TableColumn fx:id="movieTBVRating" maxWidth="1.7976931348623157E308" prefWidth="100.0" text="Rating" />
             <TableColumn fx:id="movieTBVCategories" maxWidth="1.7976931348623157E308" prefWidth="300.0" text="Categories" />
             <TableColumn fx:id="movieTBVLastView" prefWidth="109.60001220703123" text="Last View" />
@@ -66,8 +66,7 @@
                   <VBox prefHeight="59.0" prefWidth="100.0">
                      <children>
                         <Button maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#filterHandle" prefHeight="25.0" prefWidth="100.0" text="FILTER" />
-                        <Button maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#editCategoryFilter" prefHeight="25.0" prefWidth="100.0" text="Choose..." />
-                        <Button fx:id="clearFiltersBtn" mnemonicParsing="false" onAction="#clearFilterHandle" prefHeight="25.0" prefWidth="134.0" text="Clear filters" />
+                        <Button maxWidth="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#editCategoryFilter" prefHeight="25.0" prefWidth="100.0" text="choose..." />
                      </children>
                   </VBox>
                </children>

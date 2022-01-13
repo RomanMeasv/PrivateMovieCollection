@@ -125,5 +125,4 @@ public class MovieLogic {
                 .filter(movie -> movie.getLastview().isBefore(LocalDate.now().minusYears(2)) && movie.getRating() < 6)
                 .toList();
     }
-
 }
