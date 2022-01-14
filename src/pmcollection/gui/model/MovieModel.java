@@ -54,4 +54,8 @@ public class MovieModel {
         return movieLogic.getBadOldMovies(new ArrayList<Movie>(this.movies));
     }
 
+    public void restoreMovieTBV() throws Exception {
+        movies.clear();
+        movies.addAll(movieLogic.getAllMovies());
+    }
 }

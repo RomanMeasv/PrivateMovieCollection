@@ -283,4 +283,16 @@ public class MovieController implements Initializable {
             return 0;
         }
     }
+
+    public void clearFiltershandle(ActionEvent event) {
+        nameFilterField.clear();
+        categoryFilterField.clear();
+        ratingMinField.clear();
+        ratingMaxField.clear();
+        try {
+            movieModel.restoreMovieTBV();
+        } catch (Exception e) {
+            popAlertDialog(e);
+        }
+    }
 }
