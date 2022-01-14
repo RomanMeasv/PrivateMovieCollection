@@ -125,6 +125,7 @@ public class MovieController implements Initializable {
                 try {
                     response.setId(selected.getId());
                     this.categoryModel.editCategory(selected, response);
+                    movieModel.restoreMovieTBV();
                 } catch (Exception e) {
                     popAlertDialog(e);
                 }
@@ -137,6 +138,7 @@ public class MovieController implements Initializable {
         if (selected != null) {
             try {
                 this.categoryModel.deleteCategory(selected);
+                movieModel.restoreMovieTBV();
             } catch (Exception e) {
                 popAlertDialog(e);
             }
