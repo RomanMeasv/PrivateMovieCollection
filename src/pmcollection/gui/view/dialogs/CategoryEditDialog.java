@@ -8,6 +8,7 @@ import pmcollection.be.Category;
 import pmcollection.gui.controller.dialogs.CategoryEditDialogController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryEditDialog extends Dialog<List<Category>> {
@@ -20,7 +21,7 @@ public class CategoryEditDialog extends Dialog<List<Category>> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CategoryEditView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-            controller.setAllCategories(allCategories);
+            controller.setNotAssignedCategories(getNotAssignedCategories(allCategories, movieCategories));
             controller.setMovieCategories(movieCategories);
             this.setTitle("Movie categories");
             this.setDialogPane(dp);
@@ -34,5 +35,16 @@ public class CategoryEditDialog extends Dialog<List<Category>> {
         } catch (IOException ioex){
             //System.out.println("Couldn't load view!");
         }
+    }
+
+    private List<Category> getNotAssignedCategories(List<Category> allCategories, List<Category> movieCategories){
+        List<Category> notInMovie = new ArrayList<>();
+        for (Category category :
+                allCategories) {
+            if(!movieCategories.contains(category)){
+                notInMovie.add(category);
+            }
+        }
+        return notInMovie;
     }
 }

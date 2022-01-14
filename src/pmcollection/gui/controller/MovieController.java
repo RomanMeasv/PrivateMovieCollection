@@ -246,11 +246,13 @@ public class MovieController implements Initializable {
         alert.setContentText(exception.getMessage());
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            //user chose ok
-        } else {
-            //user chose cancel or closed the dialog
-        }
+        result.ifPresent(response -> {
+            if(response == ButtonType.OK){
+                //user chose ok
+            } else {
+                //user chose cancel or closed the dialog
+            }
+        });
     }
 
     private String listToQuery(List<Category> response) {

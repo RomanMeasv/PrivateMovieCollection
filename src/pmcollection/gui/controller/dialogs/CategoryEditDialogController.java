@@ -40,7 +40,7 @@ public class CategoryEditDialogController {
         return this.movieCategories.getItems();
     }
 
-    public void setAllCategories(List<Category> categories){
+    public void setNotAssignedCategories(List<Category> categories){
         this.allCategories.setItems(FXCollections.observableList(categories));
     }
 
