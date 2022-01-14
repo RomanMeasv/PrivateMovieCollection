@@ -35,7 +35,7 @@ public class MovieModel {
     }
 
     public void editMovie(Movie selected, Movie response) throws Exception {
-        this.movieLogic.update(selected, response);
+        this.movieLogic.update(response);
         this.movies.set(this.movies.indexOf(selected), response);
     }
 
