@@ -58,12 +58,12 @@ public class MovieLogic {
         return newMovie;
     }
 
-    public void update(Movie selected, Movie response) throws MovieException, CatMovieException {
+    public void update(Movie response) throws MovieException, CatMovieException {
         try
         { this.movieDAO.updateMovie(response); }
-            catch (Exception e) { throw new MovieException("Could not update movie \"" + selected.getName() + "\" in database!", e); }
+            catch (Exception e) { throw new MovieException("Could not update movie \"" + response.getName() + "\" in database!", e); }
         try
-        { this.catMovieDAO.unlinkMovieFromItsCategories(selected);
+        { this.catMovieDAO.unlinkMovieFromItsCategories(response);
           this.catMovieDAO.linkMovieToItsCategories(response); }
             catch (Exception e) { throw new CatMovieException("Could not edit category links of movie \"" + response.getName() + "\" in database!", e); }
 
