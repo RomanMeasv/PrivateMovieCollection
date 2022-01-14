@@ -11,6 +11,7 @@ import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.interfaces.ICatMovieDA;
 import pmcollection.dal.interfaces.IMovieDA;
 import pmcollection.dal.dao.MovieDAO;
+import pmcollection.enums.MovieRating;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -115,8 +116,8 @@ public class MovieLogic {
     private List<Movie> filterMoviesByRating(List<Movie> movies, float min, float max)
     {
         return movies.stream()
-                .filter(movie -> (min > 0 ? min : 0) <= movie.getRating())
-                .filter(movie -> (max > 0 ? max : 10) >= movie.getRating())
+                .filter(movie -> (Math.max(MovieRating.MIN.getValue(), min)) <= movie.getRating())
+                .filter(movie -> (Math.min(MovieRating.MAX.getValue(), max)) >= movie.getRating())
                 .toList();
     }
 
