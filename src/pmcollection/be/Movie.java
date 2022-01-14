@@ -1,6 +1,7 @@
 package pmcollection.be;
 
 import javafx.beans.property.SimpleStringProperty;
+import pmcollection.enums.MovieRating;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class Movie {
 
     //Rating should be 0-10
     public void setRating(float rating) {
-        this.rating = rating < 0 ? 0 : rating > 10 ? 10 : rating;
+        this.rating = Math.min(MovieRating.MAX.getValue(), Math.max(MovieRating.MIN.getValue(), rating));
     }
 
     public void setLastview(LocalDate lastview) {
