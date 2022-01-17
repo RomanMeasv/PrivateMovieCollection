@@ -102,21 +102,22 @@ public class MovieController implements Initializable {
             popAlertDialog(e);
         }
 
+
     }
 
-    public void categoryAdd() {
+    public void categoryCreate() {
         CategoryDialog dialog = new CategoryDialog();
         Optional<Category> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
-                this.categoryModel.addCategory(response);
+                this.categoryModel.createCategory(response);
             } catch (Exception e) {
                 popAlertDialog(e);
             }
         });
     }
 
-    public void categoryEdit() {
+    public void categoryUpdate() {
         Category selected = categoryTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             CategoryDialog dialog = new CategoryDialog();
@@ -125,7 +126,7 @@ public class MovieController implements Initializable {
             result.ifPresent(response -> {
                 try {
                     response.setId(selected.getId());
-                    this.categoryModel.editCategory(selected, response);
+                    this.categoryModel.updateCategory(selected, response);
                     movieModel.loadAllMovies();
                 } catch (Exception e) {
                     popAlertDialog(e);
@@ -134,7 +135,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void categoryRemove() {
+    public void categoryDelete() {
         Category selected = categoryTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
@@ -147,19 +148,19 @@ public class MovieController implements Initializable {
     }
 
 
-    public void movieAdd() {
+    public void movieCreate() {
         MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
         Optional<Movie> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
-                this.movieModel.addMovie(response);
+                this.movieModel.createMovie(response);
             } catch (Exception e) {
                 popAlertDialog(e);
             }
         });
     }
 
-    public void movieEdit() {
+    public void movieUpdate() {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
@@ -168,7 +169,7 @@ public class MovieController implements Initializable {
             result.ifPresent(response -> {
                 try {
                     response.setId(selected.getId());
-                    this.movieModel.editMovie(selected, response);
+                    this.movieModel.updateMovie(selected, response);
                 } catch (Exception e) {
                     popAlertDialog(e);
                 }
@@ -176,7 +177,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void movieRemove() {
+    public void movieDelete() {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
@@ -193,7 +194,7 @@ public class MovieController implements Initializable {
             if (selected != null) {
                 Movie response = selected;
                 response.setLastview(LocalDate.now());
-                movieModel.editMovie(selected, response);
+                movieModel.updateMovie(selected, response);
 
                 try {
                     File file = new File(selected.getFilelink());

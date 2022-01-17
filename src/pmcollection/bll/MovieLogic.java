@@ -39,7 +39,8 @@ public class MovieLogic {
     }
 
 
-    public Movie addMovie(Movie movie) throws MovieException, CatMovieException {
+
+    public Movie createMovie(Movie movie) throws MovieException, CatMovieException {
         Movie newMovie;
         try
         { newMovie = this.movieDAO.createMovie(movie); }
@@ -50,7 +51,7 @@ public class MovieLogic {
         return newMovie;
     }
 
-    public void update(Movie response) throws MovieException, CatMovieException {
+    public void updateMovie(Movie response) throws MovieException, CatMovieException {
         try
         { this.movieDAO.updateMovie(response); }
             catch (Exception e) { throw new MovieException("Could not update movie \"" + response.getName() + "\" in database!", e); }

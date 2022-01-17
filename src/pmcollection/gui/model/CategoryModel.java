@@ -22,13 +22,13 @@ public class CategoryModel {
         return this.categories;
     }
 
-    public void addCategory(Category response) throws Exception {
-        Category addedToDB = this.categoryLogic.addCategory(response);
+    public void createCategory(Category response) throws Exception {
+        Category addedToDB = this.categoryLogic.createCategory(response);
         this.categories.add(addedToDB);
     }
 
-    public void editCategory(Category selected, Category response) throws Exception {
-        this.categoryLogic.update(response);
+    public void updateCategory(Category selected, Category response) throws Exception {
+        this.categoryLogic.updateCategory(response);
         this.categories.set(this.categories.indexOf(selected), response);
     }
 
