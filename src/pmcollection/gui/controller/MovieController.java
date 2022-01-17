@@ -214,10 +214,10 @@ public class MovieController implements Initializable {
                     //init controller & show stage
                     controller.init(mediaPlayer);
                     videoStage.setScene(scene);
-                    controller.fullScreenHandle();
                     videoStage.setOnHidden(e ->{
                         controller.shutDown();
                     });
+                    controller.fullScreenHandle();
                     videoStage.show();
                 } catch (Exception e) {
                     popAlertDialog(e);
