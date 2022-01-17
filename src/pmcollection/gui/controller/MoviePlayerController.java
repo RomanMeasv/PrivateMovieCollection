@@ -1,6 +1,8 @@
 package pmcollection.gui.controller;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -153,4 +155,18 @@ public class MoviePlayerController {
             mp.pause();
         }
     }
+    public void shutDown(){
+        mp.stop();
+    }
+
+    public void fullScreenHandle(){
+        DoubleProperty mvw = mediaView.fitWidthProperty();
+        DoubleProperty mvh = mediaView.fitHeightProperty();
+        mvw.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
+        mvh.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
+        mediaView.setPreserveRatio(true);
+
+    }
+
+
 }

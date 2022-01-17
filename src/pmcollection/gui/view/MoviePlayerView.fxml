@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.media.MediaView?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.MoviePlayerController">
+<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pmcollection.gui.controller.MoviePlayerController">
    <bottom>
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="720.0" BorderPane.alignment="CENTER">
          <children>

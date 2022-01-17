@@ -1,5 +1,6 @@
 package pmcollection.gui.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -213,6 +214,10 @@ public class MovieController implements Initializable {
                     //init controller & show stage
                     controller.init(mediaPlayer);
                     videoStage.setScene(scene);
+                    controller.fullScreenHandle();
+                    videoStage.setOnHidden(e ->{
+                        controller.shutDown();
+                    });
                     videoStage.show();
                 } catch (Exception e) {
                     popAlertDialog(e);
