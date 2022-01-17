@@ -14,13 +14,12 @@ public class BadOldMoviesDialog extends Dialog<List<Movie>> {
 
     private BadOldMoviesDialogController controller;
 
-    public BadOldMoviesDialog(List<Movie> badOldMoviesList){
+    public BadOldMoviesDialog(){
         super();
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BadOldMoviesDialogView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-            controller.initDialog(badOldMoviesList);
             this.setTitle("Delete Bad Old Movies");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {

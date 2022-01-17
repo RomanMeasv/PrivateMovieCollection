@@ -16,18 +16,14 @@ public class MovieModel {
     private MovieLogic movieLogic;
     private ObservableList<Movie> movies;
 
-    public MovieModel() throws Exception {
-        init();
+    public MovieModel() {
+        movieLogic = new MovieLogic();
+        movies = FXCollections.observableList(new ArrayList<>());
     }
 
-    private void init() throws Exception {
-        movieLogic = new MovieLogic();
-        movies = FXCollections.observableList(movieLogic.getAllMovies());
-    }
     public ObservableList<Movie> getMovieList() {
         return this.movies;
     }
-
 
     public void addMovie(Movie response) throws Exception {
         Movie addedToDB = this.movieLogic.addMovie(response);
@@ -49,13 +45,25 @@ public class MovieModel {
         movies.addAll(movieLogic.filterMovies(name, categories, min, max));
     }
 
-    public List<Movie> getBadOldMovies()
+    public List<Movie> getBadOldMovies() throws Exception
     {
-        return movieLogic.getBadOldMovies(new ArrayList<Movie>(this.movies));
+        return movieLogic.getBadOldMovies();
     }
 
-    public void restoreMovieTBV() throws Exception {
+    public void loadAllMovies() throws Exception {
         movies.clear();
         movies.addAll(movieLogic.getAllMovies());
+    }
+
+    public void loadBadMovies() throws Exception {
+        movies.clear();
+        movies.addAll(movieLogic.getBadOldMovies());
+    }
+
+    public void deleteMovies(List<Movie> movieList) throws Exception {
+        for (Movie movie :
+                movieList) {
+            this.deleteMovie(movie);
+        }
     }
 }

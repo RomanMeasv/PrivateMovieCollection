@@ -1,49 +1,59 @@
 package pmcollection.gui.controller.dialogs;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import pmcollection.be.Movie;
+import pmcollection.gui.model.MovieModel;
 
-import java.util.ArrayList;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class BadOldMoviesDialogController {
+public class BadOldMoviesDialogController implements Initializable{
 
     @FXML
     public ListView<Movie> moviesKeepLV;
     @FXML
     public ListView<Movie> moviesDeleteLV;
 
-    private ObservableList<Movie> moviesToKeep;
-    private ObservableList<Movie> moviesToDelete;
+    private MovieModel moviesToKeepModel;
+    private MovieModel moviesToDeleteModel;
 
-    public void initDialog(List<Movie> movies){
-        this.moviesToKeep = FXCollections.observableList(movies);
-        this.moviesToDelete = FXCollections.observableList(new ArrayList<>());
-        this.moviesKeepLV.setItems(this.moviesToKeep);
-        this.moviesDeleteLV.setItems(this.moviesToDelete);
+    public BadOldMoviesDialogController(){
+        try{
+            this.moviesToKeepModel = new MovieModel();
+            this.moviesToDeleteModel = new MovieModel();
+            this.moviesToKeepModel.loadBadMovies();
+        } catch (Exception e){
+
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.moviesKeepLV.setItems(this.moviesToKeepModel.getMovieList());
+        this.moviesDeleteLV.setItems(this.moviesToDeleteModel.getMovieList());
     }
 
     public void movieToDelete(ActionEvent actionEvent) {
         Movie selected = this.moviesKeepLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            this.moviesToDelete.add(selected);
-            this.moviesToKeep.remove(0);
+            this.moviesDeleteLV.getItems().add(selected);
+            this.moviesKeepLV.getItems().remove(selected);
         }
     }
 
     public void movieToKeep(ActionEvent actionEvent) {
         Movie selected = this.moviesDeleteLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            this.moviesToKeep.add(selected);
-            this.moviesToDelete.remove(selected);
+            this.moviesKeepLV.getItems().add(selected);
+            this.moviesDeleteLV.getItems().remove(selected);
         }
     }
 
     public List<Movie> getMoviesToDelete() {
-        return this.moviesToDelete;
+        return this.moviesToDeleteModel.getMovieList().stream().toList();
     }
 }

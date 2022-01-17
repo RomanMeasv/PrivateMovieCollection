@@ -121,8 +121,9 @@ public class MovieLogic {
                 .toList();
     }
 
-    public List<Movie> getBadOldMovies(List<Movie> movieList) {
-        return movieList.stream()
+    public List<Movie> getBadOldMovies() throws Exception {
+        List<Movie> allMovies = getAllMovies();
+        return allMovies.stream()
                 .filter(movie -> movie.getLastview().isBefore(LocalDate.now().minusYears(2)) && movie.getRating() < 6)
                 .toList();
     }

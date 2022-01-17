@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,7 +15,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
-import pmcollection.bll.MovieLogic;
 import pmcollection.gui.model.CategoryModel;
 import pmcollection.gui.model.MovieModel;
 import pmcollection.gui.view.dialogs.BadOldMoviesDialog;
@@ -25,9 +23,6 @@ import pmcollection.gui.view.dialogs.CategoryEditDialog;
 import pmcollection.gui.view.dialogs.MovieDialog;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Executable;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.time.LocalDate;
@@ -56,23 +51,28 @@ public class MovieController implements Initializable {
     @FXML
     public TableColumn<Movie, String> movieTBVCategories;
 
-
     private CategoryModel categoryModel;
     private MovieModel movieModel;
 
     public MovieController() {
-        try {
-            categoryModel = new CategoryModel();
-            movieModel = new MovieModel();
-        } catch (Exception e) {
-            popAlertDialog(e);
-        }
+        categoryModel = new CategoryModel();
+        movieModel = new MovieModel();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        loadDatabaseData();
         initTables();
         checkBadOldMovies();
+    }
+
+    private void loadDatabaseData(){
+        try {
+            movieModel.loadAllMovies();
+            categoryModel.loadAllCategories();
+        } catch (Exception e) {
+            popAlertDialog(e);
+        }
     }
 
     private void initTables() {
@@ -86,21 +86,23 @@ public class MovieController implements Initializable {
     }
 
     private void checkBadOldMovies() {
-        List<Movie> badOldMovies = new ArrayList<>(this.movieModel.getBadOldMovies());
-        if (!badOldMovies.isEmpty()) {
-            BadOldMoviesDialog dialog = new BadOldMoviesDialog(badOldMovies);
-            Optional<List<Movie>> result = dialog.showAndWait();
-            result.ifPresent(response -> {
-                try {
-                    for (Movie movie :
-                            response) {
-                        this.movieModel.deleteMovie(movie);
+        try{
+            List<Movie> badOldMovies = this.movieModel.getBadOldMovies();
+            if (!badOldMovies.isEmpty()) {
+                BadOldMoviesDialog dialog = new BadOldMoviesDialog();
+                Optional<List<Movie>> result = dialog.showAndWait();
+                result.ifPresent(response -> {
+                    try {
+                        this.movieModel.deleteMovies(response);
+                    } catch (Exception e) {
+                        popAlertDialog(e);
                     }
-                } catch (Exception e) {
-                    popAlertDialog(e);
-                }
-            });
+                });
+            }
+        } catch (Exception e){
+            popAlertDialog(e);
         }
+
     }
 
     public void categoryAdd(ActionEvent event) {
@@ -125,7 +127,7 @@ public class MovieController implements Initializable {
                 try {
                     response.setId(selected.getId());
                     this.categoryModel.editCategory(selected, response);
-                    movieModel.restoreMovieTBV();
+                    movieModel.loadAllMovies();
                 } catch (Exception e) {
                     popAlertDialog(e);
                 }
@@ -138,7 +140,7 @@ public class MovieController implements Initializable {
         if (selected != null) {
             try {
                 this.categoryModel.deleteCategory(selected);
-                movieModel.restoreMovieTBV();
+                movieModel.loadAllMovies();
             } catch (Exception e) {
                 popAlertDialog(e);
             }
@@ -294,7 +296,7 @@ public class MovieController implements Initializable {
         ratingMinField.clear();
         ratingMaxField.clear();
         try {
-            movieModel.restoreMovieTBV();
+            movieModel.loadAllMovies();
         } catch (Exception e) {
             popAlertDialog(e);
         }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import pmcollection.be.Category;
 import pmcollection.bll.CategoryLogic;
+import pmcollection.bll.exceptions.CategoryException;
 
 import javax.swing.text.TableView;
 import java.util.ArrayList;
@@ -14,13 +15,9 @@ public class CategoryModel {
     private CategoryLogic categoryLogic;
     private ObservableList<Category> categories;
 
-    public CategoryModel() throws Exception {
-        init();
-    }
-
-    private void init() throws Exception {
+    public CategoryModel() {
         categoryLogic = new CategoryLogic();
-        categories = FXCollections.observableList(categoryLogic.getAllCategories());
+        categories = FXCollections.observableList(new ArrayList<>());
     }
 
     public ObservableList<Category> getCategoryList() {
@@ -40,5 +37,10 @@ public class CategoryModel {
     public void deleteCategory(Category selected) throws Exception {
         this.categoryLogic.delete(selected);
         this.categories.remove(selected);
+    }
+
+    public void loadAllCategories() throws Exception {
+        categories.clear();
+        categories.addAll(categoryLogic.getAllCategories());
     }
 }
