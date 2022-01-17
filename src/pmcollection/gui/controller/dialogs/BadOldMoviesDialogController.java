@@ -1,6 +1,5 @@
 package pmcollection.gui.controller.dialogs;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -37,7 +36,7 @@ public class BadOldMoviesDialogController implements Initializable{
         this.moviesDeleteLV.setItems(this.moviesToDeleteModel.getMovieList());
     }
 
-    public void movieToDelete(ActionEvent actionEvent) {
+    public void movieToDelete() {
         Movie selected = this.moviesKeepLV.getSelectionModel().getSelectedItem();
         if(selected != null){
             this.moviesDeleteLV.getItems().add(selected);
@@ -45,7 +44,7 @@ public class BadOldMoviesDialogController implements Initializable{
         }
     }
 
-    public void movieToKeep(ActionEvent actionEvent) {
+    public void movieToKeep() {
         Movie selected = this.moviesDeleteLV.getSelectionModel().getSelectedItem();
         if(selected != null){
             this.moviesKeepLV.getItems().add(selected);

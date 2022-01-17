@@ -2,13 +2,11 @@ package pmcollection.gui.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.bll.MovieLogic;
 
 import java.util.ArrayList;
-import java.io.IOException;
 import java.util.List;
 
 public class MovieModel {

@@ -107,7 +107,7 @@ public class MovieDialogController implements Initializable{
         }
     }
 
-    public void editCategories(ActionEvent actionEvent) {
+    public void editCategories() {
         CategoryEditDialog dialog = new CategoryEditDialog(this.allCategories, this.getCategories());
         Optional<List<Category>> result = dialog.showAndWait();
         result.ifPresent(response -> {

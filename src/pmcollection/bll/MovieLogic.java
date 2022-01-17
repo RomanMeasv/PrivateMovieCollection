@@ -1,12 +1,10 @@
 package pmcollection.bll;
 
-import javafx.collections.ObservableList;
 import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.bll.exceptions.CatMovieException;
 import pmcollection.bll.exceptions.MovieException;
 import pmcollection.bll.exceptions.MovieFilterException;
-import pmcollection.bll.exceptions.BadOldMovieException;
 import pmcollection.dal.dao.CatMovieDAO;
 import pmcollection.dal.interfaces.ICatMovieDA;
 import pmcollection.dal.interfaces.IMovieDA;
@@ -40,13 +38,6 @@ public class MovieLogic {
         return allMovies;
     }
 
-    /*
-    public Movie getMovie(int id) {
-        Movie movie = movieDAO.getMovie(id);
-        movie.setCategories(catMovieDAO.getCategoriesOfMovie(movie));
-        return movie;
-    }
-    */
 
     public Movie addMovie(Movie movie) throws MovieException, CatMovieException {
         Movie newMovie;

@@ -1,6 +1,5 @@
 package pmcollection.gui.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -105,7 +104,7 @@ public class MovieController implements Initializable {
 
     }
 
-    public void categoryAdd(ActionEvent event) {
+    public void categoryAdd() {
         CategoryDialog dialog = new CategoryDialog();
         Optional<Category> result = dialog.showAndWait();
         result.ifPresent(response -> {
@@ -117,7 +116,7 @@ public class MovieController implements Initializable {
         });
     }
 
-    public void categoryEdit(ActionEvent event) {
+    public void categoryEdit() {
         Category selected = categoryTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             CategoryDialog dialog = new CategoryDialog();
@@ -135,7 +134,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void categoryRemove(ActionEvent event) {
+    public void categoryRemove() {
         Category selected = categoryTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
@@ -148,7 +147,7 @@ public class MovieController implements Initializable {
     }
 
 
-    public void movieAdd(ActionEvent event) {
+    public void movieAdd() {
         MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
         Optional<Movie> result = dialog.showAndWait();
         result.ifPresent(response -> {
@@ -160,7 +159,7 @@ public class MovieController implements Initializable {
         });
     }
 
-    public void movieEdit(ActionEvent event) {
+    public void movieEdit() {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             MovieDialog dialog = new MovieDialog(new ArrayList<>(this.categoryModel.getCategoryList()));
@@ -177,7 +176,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void movieRemove(ActionEvent event) {
+    public void movieRemove() {
         Movie selected = movieTBV.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
@@ -221,7 +220,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void filterHandle(ActionEvent event) {
+    public void filterHandle() {
         try {
             this.movieModel.filterMovies(nameFilterField.getText(),
                     queryToList(categoryFilterField.getText()),
@@ -232,7 +231,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void editCategoryFilter(ActionEvent actionEvent) {
+    public void editCategoryFilter() {
         CategoryEditDialog dialog = new CategoryEditDialog(new ArrayList<>(categoryTBV.getItems()), queryToList(this.categoryFilterField.getText()));
         Optional<List<Category>> result = dialog.showAndWait();
         result.ifPresent(response -> {
@@ -290,7 +289,7 @@ public class MovieController implements Initializable {
         }
     }
 
-    public void clearFiltershandle(ActionEvent event) {
+    public void clearFiltershandle() {
         nameFilterField.clear();
         categoryFilterField.clear();
         ratingMinField.clear();

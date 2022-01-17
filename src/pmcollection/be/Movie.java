@@ -91,18 +91,6 @@ public class Movie {
         this.filelink = filelink;
     }
 
-    /*
-    One movie should only have one category only ONCE! But this is taken care of int the UI!
-     */
-    public void addCategory(Category category)
-    {
-            categories.add(category);
-    }
-
-    public void removeCategory(Category category)
-    {
-        categories.remove(category);
-    }
 
     @Override
     public String toString(){
