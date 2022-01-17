@@ -108,4 +108,21 @@ public class Movie {
     public String toString(){
         return "Name: " + this.name + "\nRating: " + this.rating + "\nLastview: " + this.lastview;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == this)
+        {
+            return true;
+        }
+        if (!(o instanceof Movie))
+        {
+            return false;
+        }
+
+        Movie m = (Movie) o;
+
+        return this.id == m.id;
+    }
 }
