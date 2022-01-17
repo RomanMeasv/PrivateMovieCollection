@@ -6,8 +6,8 @@ import pmcollection.be.Category;
 import pmcollection.bll.CategoryLogic;
 
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryModel {
     private CategoryLogic categoryLogic;
@@ -40,5 +40,17 @@ public class CategoryModel {
     public void loadAllCategories() throws Exception {
         categories.clear();
         categories.addAll(categoryLogic.getAllCategories());
+    }
+
+    public void replaceAll(List<Category> replace) {
+        categories.clear();
+        categories.addAll(replace);
+    }
+
+    public void removeUsed(List<Category> usedCategories) {
+        for (Category c :
+                usedCategories) {
+            categories.remove(c);
+        }
     }
 }

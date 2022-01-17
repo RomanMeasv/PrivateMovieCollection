@@ -15,19 +15,18 @@ public class CategoryEditDialog extends Dialog<List<Category>> {
 
     private CategoryEditDialogController controller;
 
-    public CategoryEditDialog(List<Category> allCategories, List<Category> movieCategories){
+    public CategoryEditDialog(List<Category> usedCategories){
         super();
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CategoryEditView.fxml"));
             DialogPane dp = loader.load();
             controller = loader.getController();
-            controller.setNotAssignedCategories(getNotAssignedCategories(allCategories, movieCategories));
-            controller.setMovieCategories(movieCategories);
+            controller.init(usedCategories);
             this.setTitle("Movie categories");
             this.setDialogPane(dp);
             this.setResultConverter(buttonType -> {
                 if(buttonType == ButtonType.APPLY){
-                    return controller.getMovieCategories();
+                    return controller.getUsedCategories();
                 }
                 return null;
             });

@@ -2,45 +2,66 @@ package pmcollection.gui.controller.dialogs;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import pmcollection.be.Category;
+import pmcollection.gui.model.CategoryModel;
 
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CategoryEditDialogController {
+public class CategoryEditDialogController implements Initializable {
 
     @FXML
-    public ListView<Category> allCategories;
+    public ListView<Category> unusedCategoriesLV;
     @FXML
-    public ListView<Category> movieCategories;
+    public ListView<Category> usedCategoriesLV;
+
+    private CategoryModel unusedCategoriesModel;
+    private CategoryModel usedCategoriesModel;
+
+    public CategoryEditDialogController(){
+        unusedCategoriesModel = new CategoryModel();
+        usedCategoriesModel = new CategoryModel();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try{
+            this.unusedCategoriesModel.loadAllCategories();
+        } catch (Exception e){
+
+        }
+        this.unusedCategoriesLV.setItems(unusedCategoriesModel.getCategoryList());
+        this.usedCategoriesLV.setItems(usedCategoriesModel.getCategoryList());
+    }
+
+    public void init(List<Category> usedCategories) {
+        usedCategoriesModel.replaceAll(usedCategories);
+        unusedCategoriesModel.removeUsed(usedCategories);
+    }
 
     public void removeFromMovie() {
-        Category selected = this.movieCategories.getSelectionModel().getSelectedItem();
+        Category selected = this.usedCategoriesLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            if(!this.allCategories.getItems().contains(selected)){
-                this.allCategories.getItems().add(selected);
+            if(!this.unusedCategoriesLV.getItems().contains(selected)){
+                this.unusedCategoriesLV.getItems().add(selected);
             }
-            this.movieCategories.getItems().remove(selected);
+            this.usedCategoriesLV.getItems().remove(selected);
         }
     }
 
     public void addToMovie() {
-        Category selected = this.allCategories.getSelectionModel().getSelectedItem();
+        Category selected = this.unusedCategoriesLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            this.movieCategories.getItems().add(selected);
-            this.allCategories.getItems().remove(selected);
+            this.usedCategoriesLV.getItems().add(selected);
+            this.unusedCategoriesLV.getItems().remove(selected);
         }
     }
 
-    public List<Category> getMovieCategories() {
-        return this.movieCategories.getItems();
-    }
-
-    public void setNotAssignedCategories(List<Category> categories){
-        this.allCategories.setItems(FXCollections.observableList(categories));
-    }
-
-    public void setMovieCategories(List<Category> categories){
-        this.movieCategories.setItems(FXCollections.observableList(categories));
+    public List<Category> getUsedCategories() {
+        return this.usedCategoriesModel.getCategoryList().stream().toList();
     }
 }

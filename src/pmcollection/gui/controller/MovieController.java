@@ -232,7 +232,7 @@ public class MovieController implements Initializable {
     }
 
     public void editCategoryFilter() {
-        CategoryEditDialog dialog = new CategoryEditDialog(new ArrayList<>(categoryTBV.getItems()), queryToList(this.categoryFilterField.getText()));
+        CategoryEditDialog dialog = new CategoryEditDialog(queryToList(this.categoryFilterField.getText()));
         Optional<List<Category>> result = dialog.showAndWait();
         result.ifPresent(response -> {
             try {
