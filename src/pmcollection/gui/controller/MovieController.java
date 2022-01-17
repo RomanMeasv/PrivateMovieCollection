@@ -210,6 +210,8 @@ public class MovieController implements Initializable {
                     Scene scene = new Scene(root);
                     Stage videoStage = new Stage();
                     videoStage.setTitle("Video Player");
+                    videoStage.setWidth(1000);
+                    videoStage.setHeight(700);
 
                     //init controller & show stage
                     controller.init(mediaPlayer);
