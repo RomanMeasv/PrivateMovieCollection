@@ -33,18 +33,18 @@
          </columns></TableView>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
          <children>
-            <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#categoryAdd" prefHeight="55.0" text="Add Category" />
-            <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#categoryEdit" prefHeight="55.0" text="Edit Category" />
-            <Button maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#categoryRemove" prefHeight="55.0" text="Remove Category" />
+            <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#categoryCreate" prefHeight="55.0" text="Add Category" />
+            <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#categoryUpdate" prefHeight="55.0" text="Edit Category" />
+            <Button maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#categoryDelete" prefHeight="55.0" text="Remove Category" />
          </children>
       </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieAdd" text="Add Movie" />
-                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieEdit" text="Edit Movie" />
-                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieRemove" text="Remove Movie" />
+                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieCreate" text="Add Movie" />
+                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieUpdate" text="Edit Movie" />
+                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#movieDelete" text="Remove Movie" />
                </children>
             </HBox>
             <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />

@@ -23,13 +23,13 @@ public class MovieModel {
         return this.movies;
     }
 
-    public void addMovie(Movie response) throws Exception {
-        Movie addedToDB = this.movieLogic.addMovie(response);
+    public void createMovie(Movie response) throws Exception {
+        Movie addedToDB = this.movieLogic.createMovie(response);
         this.movies.add(addedToDB);
     }
 
-    public void editMovie(Movie selected, Movie response) throws Exception {
-        this.movieLogic.update(response);
+    public void updateMovie(Movie selected, Movie response) throws Exception {
+        this.movieLogic.updateMovie(response);
         this.movies.set(this.movies.indexOf(selected), response);
     }
 

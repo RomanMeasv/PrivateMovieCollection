@@ -26,13 +26,13 @@ public class CategoryLogic {
             catch (Exception e) { throw new CategoryException("Could not access movies from database!", e); }
     }
 
-    public Category addCategory(Category category) throws CategoryException {
+    public Category createCategory(Category category) throws CategoryException {
         try
         { return this.categoryDAO.createCategory(category); }
             catch (Exception e) { throw new CategoryException("Could not create category \"" + category.getName() + "\" in the database!", e); }
     }
 
-    public void update(Category category) throws CategoryException {
+    public void updateCategory(Category category) throws CategoryException {
         try
         { this.categoryDAO.updateCategory(category); }
             catch (Exception e) { throw new CategoryException("Could not update category \"" + category.getName() + "\" in the database!", e); }
