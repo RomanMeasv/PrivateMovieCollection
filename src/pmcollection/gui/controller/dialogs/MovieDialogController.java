@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import pmcollection.be.Category;
 import pmcollection.gui.view.dialogs.CategoryEditDialog;
@@ -113,13 +110,28 @@ public class MovieDialogController implements Initializable{
         result.ifPresent(response -> {
             try {
                 this.setCategories(response);
-            } catch (Exception ignored) {
-
+            } catch (Exception e) {
+                popAlertDialog(e);
             }
         });
     }
 
     public void setAllCategories(List<Category> allCategories) {
         this.allCategories = allCategories;
+    }
+
+    private void popAlertDialog(Exception exception) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alert Dialog");
+        alert.setContentText(exception.getMessage());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        result.ifPresent(response -> {
+            if(response == ButtonType.OK){
+                //user chose ok
+            } else {
+                //user chose cancel or closed the dialog
+            }
+        });
     }
 }

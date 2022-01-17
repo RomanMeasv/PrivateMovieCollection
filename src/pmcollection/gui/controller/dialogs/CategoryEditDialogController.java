@@ -3,6 +3,8 @@ package pmcollection.gui.controller.dialogs;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import pmcollection.be.Category;
 import pmcollection.gui.model.CategoryModel;
@@ -10,6 +12,7 @@ import pmcollection.gui.model.CategoryModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CategoryEditDialogController implements Initializable {
@@ -32,7 +35,7 @@ public class CategoryEditDialogController implements Initializable {
         try{
             this.unusedCategoriesModel.loadAllCategories();
         } catch (Exception e){
-
+            popAlertDialog(e);
         }
         this.unusedCategoriesLV.setItems(unusedCategoriesModel.getCategoryList());
         this.usedCategoriesLV.setItems(usedCategoriesModel.getCategoryList());
@@ -46,9 +49,7 @@ public class CategoryEditDialogController implements Initializable {
     public void removeFromMovie() {
         Category selected = this.usedCategoriesLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            if(!this.unusedCategoriesLV.getItems().contains(selected)){
-                this.unusedCategoriesLV.getItems().add(selected);
-            }
+            this.unusedCategoriesLV.getItems().add(selected);
             this.usedCategoriesLV.getItems().remove(selected);
         }
     }
@@ -63,5 +64,20 @@ public class CategoryEditDialogController implements Initializable {
 
     public List<Category> getUsedCategories() {
         return this.usedCategoriesModel.getCategoryList().stream().toList();
+    }
+
+    private void popAlertDialog(Exception exception) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alert Dialog");
+        alert.setContentText(exception.getMessage());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        result.ifPresent(response -> {
+            if(response == ButtonType.OK){
+                //user chose ok
+            } else {
+                //user chose cancel or closed the dialog
+            }
+        });
     }
 }

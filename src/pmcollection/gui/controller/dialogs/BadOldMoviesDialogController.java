@@ -2,12 +2,15 @@ package pmcollection.gui.controller.dialogs;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import pmcollection.be.Movie;
 import pmcollection.gui.model.MovieModel;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BadOldMoviesDialogController implements Initializable{
@@ -26,7 +29,7 @@ public class BadOldMoviesDialogController implements Initializable{
             this.moviesToDeleteModel = new MovieModel();
             this.moviesToKeepModel.loadBadMovies();
         } catch (Exception e){
-
+            popAlertDialog(e);
         }
     }
 
@@ -54,5 +57,20 @@ public class BadOldMoviesDialogController implements Initializable{
 
     public List<Movie> getMoviesToDelete() {
         return this.moviesToDeleteModel.getMovieList().stream().toList();
+    }
+
+    private void popAlertDialog(Exception exception) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alert Dialog");
+        alert.setContentText(exception.getMessage());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        result.ifPresent(response -> {
+            if(response == ButtonType.OK){
+                //user chose ok
+            } else {
+                //user chose cancel or closed the dialog
+            }
+        });
     }
 }
