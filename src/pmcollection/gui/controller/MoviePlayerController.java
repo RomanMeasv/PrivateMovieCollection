@@ -1,8 +1,6 @@
 package pmcollection.gui.controller;
 
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,44 +32,30 @@ public class MoviePlayerController {
         this.mp = mediaPlayer;
         this.mediaView.setMediaPlayer(this.mp);
 
-        mp.currentTimeProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                updateValues();
+        mp.currentTimeProperty().addListener(ov -> updateValues());
+
+        mp.setOnPlaying(() -> {
+            if (stopRequested) {
+                mp.pause();
+                stopRequested = false;
+            } else {
+                playButton.setText("||");
             }
         });
 
-        mp.setOnPlaying(new Runnable() {
-            public void run() {
-                if (stopRequested) {
-                    mp.pause();
-                    stopRequested = false;
-                } else {
-                    playButton.setText("||");
-                }
-            }
-        });
+        mp.setOnPaused(() -> playButton.setText(">"));
 
-        mp.setOnPaused(new Runnable() {
-            public void run() {
-                playButton.setText(">");
-            }
-        });
-
-        mp.setOnReady(new Runnable() {
-            public void run() {
-                duration = mp.getMedia().getDuration();
-                updateValues();
-            }
+        mp.setOnReady(() -> {
+            duration = mp.getMedia().getDuration();
+            updateValues();
         });
 
         mp.setCycleCount(repeat ? MediaPlayer.INDEFINITE : 1);
-        mp.setOnEndOfMedia(new Runnable() {
-            public void run() {
-                if (!repeat) {
-                    playButton.setText(">");
-                    stopRequested = true;
-                    atEndOfMedia = true;
-                }
+        mp.setOnEndOfMedia(() -> {
+            if (!repeat) {
+                playButton.setText(">");
+                stopRequested = true;
+                atEndOfMedia = true;
             }
         });
 
@@ -82,32 +66,28 @@ public class MoviePlayerController {
             }
         });
 
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (volumeSlider.isValueChanging()) {
-                    mp.setVolume(volumeSlider.getValue() / 100.0);
-                }
+        volumeSlider.valueProperty().addListener(ov -> {
+            if (volumeSlider.isValueChanging()) {
+                mp.setVolume(volumeSlider.getValue() / 100.0);
             }
         });
     }
 
     protected void updateValues() {
         if (playTimeLabel != null && timeSlider != null && volumeSlider != null) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    Duration currentTime = mp.getCurrentTime();
-                    playTimeLabel.setText(formatTime(currentTime, duration));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled()
-                            && duration.greaterThan(Duration.ZERO)
-                            && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(currentTime.divide(duration).toMillis()
-                                * 100.0);
-                    }
-                    if (!volumeSlider.isValueChanging()) {
-                        volumeSlider.setValue((int) Math.round(mp.getVolume()
-                                * 100));
-                    }
+            Platform.runLater(() -> {
+                Duration currentTime = mp.getCurrentTime();
+                playTimeLabel.setText(formatTime(currentTime, duration));
+                timeSlider.setDisable(duration.isUnknown());
+                if (!timeSlider.isDisabled()
+                        && duration.greaterThan(Duration.ZERO)
+                        && !timeSlider.isValueChanging()) {
+                    timeSlider.setValue(currentTime.divide(duration).toMillis()
+                            * 100.0);
+                }
+                if (!volumeSlider.isValueChanging()) {
+                    volumeSlider.setValue((int) Math.round(mp.getVolume()
+                            * 100));
                 }
             });
         }
