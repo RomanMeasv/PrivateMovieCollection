@@ -46,9 +46,7 @@ public class CategoryEditDialogController implements Initializable {
     public void removeFromMovie() {
         Category selected = this.usedCategoriesLV.getSelectionModel().getSelectedItem();
         if(selected != null){
-            if(!this.unusedCategoriesLV.getItems().contains(selected)){
-                this.unusedCategoriesLV.getItems().add(selected);
-            }
+            this.unusedCategoriesLV.getItems().add(selected);
             this.usedCategoriesLV.getItems().remove(selected);
         }
     }
