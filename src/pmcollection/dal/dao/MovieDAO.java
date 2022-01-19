@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDAO implements IMovieDA {
-    ConnectionManager cm;
+    private ConnectionManager cm;
 
     public MovieDAO() {
         this.cm = new ConnectionManager();

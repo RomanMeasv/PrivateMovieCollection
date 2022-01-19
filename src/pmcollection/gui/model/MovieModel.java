@@ -34,7 +34,7 @@ public class MovieModel {
     }
 
     public void deleteMovie(Movie selected) throws Exception {
-        this.movieLogic.delete(selected);
+        this.movieLogic.deleteMovie(selected);
         this.movies.remove(selected);
     }
 

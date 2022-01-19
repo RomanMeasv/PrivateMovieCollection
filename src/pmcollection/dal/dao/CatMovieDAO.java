@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CatMovieDAO implements ICatMovieDA {
-    ConnectionManager cm;
-    MovieDAO movieDAO;
-    CategoryDAO categoryDAO;
+    private ConnectionManager cm;
+    private MovieDAO movieDAO;
+    private CategoryDAO categoryDAO;
 
     public CatMovieDAO() {
         this.cm = new ConnectionManager();

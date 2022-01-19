@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO implements ICategoryDA {
-    ConnectionManager cm;
+    private ConnectionManager cm;
 
     public CategoryDAO() {
         this.cm = new ConnectionManager();

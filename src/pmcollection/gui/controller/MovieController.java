@@ -31,25 +31,25 @@ import java.util.*;
 
 public class MovieController implements Initializable {
     @FXML
-    public TableView<Category> categoryTBV;
+    private TableView<Category> categoryTBV;
     @FXML
-    public TableView<Movie> movieTBV;
+    private TableView<Movie> movieTBV;
     @FXML
-    public TextField nameFilterField;
+    private TextField nameFilterField;
     @FXML
-    public TextField categoryFilterField;
+    private TextField categoryFilterField;
     @FXML
-    public TextField ratingMinField, ratingMaxField;
+    private TextField ratingMinField, ratingMaxField;
     @FXML
-    public TableColumn<Category, String> categoryNameColumn;
+    private TableColumn<Category, String> categoryNameColumn;
     @FXML
-    public TableColumn<Movie, String> movieTBVName;
+    private TableColumn<Movie, String> movieTBVName;
     @FXML
-    public TableColumn<Movie, String> movieTBVLastView;
+    private TableColumn<Movie, String> movieTBVLastView;
     @FXML
-    public TableColumn<Movie, String> movieTBVRating;
+    private TableColumn<Movie, String> movieTBVRating;
     @FXML
-    public TableColumn<Movie, String> movieTBVCategories;
+    private TableColumn<Movie, String> movieTBVCategories;
 
     private CategoryModel categoryModel;
     private MovieModel movieModel;

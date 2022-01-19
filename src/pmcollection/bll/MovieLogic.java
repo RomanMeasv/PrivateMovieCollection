@@ -62,7 +62,7 @@ public class MovieLogic {
 
     }
 
-    public void delete(Movie movie) throws CatMovieException, MovieException {
+    public void deleteMovie(Movie movie) throws CatMovieException, MovieException {
         try
         { catMovieDAO.unlinkMovieFromItsCategories(movie); }
             catch (Exception e) {throw new CatMovieException("Could not unlink movie \"" + movie.getName() + "\" from it's categories in database!", e); }

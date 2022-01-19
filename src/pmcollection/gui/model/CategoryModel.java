@@ -33,7 +33,7 @@ public class CategoryModel {
     }
 
     public void deleteCategory(Category selected) throws Exception {
-        this.categoryLogic.delete(selected);
+        this.categoryLogic.deleteCategory(selected);
         this.categories.remove(selected);
     }
 

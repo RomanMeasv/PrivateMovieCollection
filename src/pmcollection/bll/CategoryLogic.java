@@ -38,7 +38,7 @@ public class CategoryLogic {
             catch (Exception e) { throw new CategoryException("Could not update category \"" + category.getName() + "\" in the database!", e); }
     }
 
-    public void delete(Category category) throws CatMovieException, CategoryException {
+    public void deleteCategory(Category category) throws CatMovieException, CategoryException {
         try
         { catMovieDAO.unlinkCategoryFromMovies(category); }
             catch (Exception e) { throw new CatMovieException("Could not unlink category \"" + category.getName() + "\" from movie it was assigned to in the database!", e); }
