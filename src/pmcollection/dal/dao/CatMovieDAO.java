@@ -4,6 +4,8 @@ import pmcollection.be.Category;
 import pmcollection.be.Movie;
 import pmcollection.dal.ConnectionManager;
 import pmcollection.dal.interfaces.ICatMovieDA;
+import pmcollection.dal.interfaces.ICategoryDA;
+import pmcollection.dal.interfaces.IMovieDA;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ import java.util.List;
 
 public class CatMovieDAO implements ICatMovieDA {
     private ConnectionManager cm;
-    private MovieDAO movieDAO;
-    private CategoryDAO categoryDAO;
+    private IMovieDA movieDAO;
+    private ICategoryDA categoryDAO;
 
     public CatMovieDAO() {
         this.cm = new ConnectionManager();
